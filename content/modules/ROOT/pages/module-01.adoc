@@ -1,149 +1,109 @@
-= Building an Application with rpms
+= Registration and Initial use
 
-== Downloading the UBI
+=== Overview
 
-In this lab, you will be installing software into the container 
-image running as an interactive application. To do this you will
-need `yum`, but do not need `systemd` for managing services within the
-container environment.  For that reason, you will be using the *Standard*
-UBI image (as opposed to the Minimal or Multi-service images).
+In this lab we have already provided for you a Red Hat Enterprise Linux (RHEL) 8 host. +
+Your RHEL host will be the primary focus of this lab, and you will be using a user account that has access to all of the services of Insights, however to provide the best experience for all users there are some actions you will not be able to do in the lab 
 
-Using the "buildah from" command will download and meld the container image. This particular image we are using is the Red Hat Universal Base Image or UBI. From the ourput of the command, you will notice that we are pulling down the latest one, which is for RHEL 9. 
 
-. Execute the  download the Standard UBI
-image from Red Hat's registry.
+Insights uses the insights-client on each RHEL host to report system facts to Insights for analysis.  +
+The insights-client is typically part of the base RHEL image, but you will need to register the host to Insights through a registration command. +
+We will start by connecting this host to Insights.
 
-+
+=== Connecting to Insights
+
+There are a couple of different ways to connect to Insights.  In this lab we will use a manual command, but you can also register from a Red Hat Satellite Server if your host is connected to a Satellite or you can leverage an ansible playbook.  If you connect your cloud provider to the Hybrid Cloud Console (console.redhat.com) then systems in the cloud can be automatically registered to Red Hat and Insights.
+
+We will use the rhc command (remote host configuration) which wraps the subscription-manager and the insights registration command into a single command while also enabling some other capabilities like Insights remediation.
+
+We will use an activation key that already exists as well as the organization ID. 
+
+Connect to host via SSH
+
+Run the command:
+
 [source,sh,role=execute]
 ----
-buildah from registry.access.redhat.com/ubi9/ubi
+sudo rhc connect -o 13959588 -a AK_Summit_Lab
 ----
 
-[#repositories]
-== Installing Repositories
-In this lab, you are going to containerize a software package that is already
-packaged in RPM format and stored in the Extra Packages for Enterprise Linux
-(EPEL) repository.
-
-Software often has requirements for prerequisite software that must be installed
-on the machine for it to work properly.  `yum` will resolve those
-dependencies for you, as long as it can locate the required packages in
-repositories defined on the machine.  The Red Hat Universal Base Image (UBI)
-downloaded in the previous step has access to some Red Hat Enterprise Linux
-repositories.  However, the target package for the lab is from EPEL.  
-
-. In the command below, `buildah` is going to run a command on the
-`ubi-working-container` image.  The `--` indicates that the command should be
-executed from within the container, which means the results will be applied into
-the container image.  Lastly, you are providing the `yum` command to install a
-package that defines all of the repositories from EPEL, `epel-release-latest-9`.
-
-+
-[source,bash]
-----
-buildah run ubi-working-container -- yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
-----
+In the output you should see something similar to:
 
 
-. You can verify that the above command did not install the RPM on the host system.
-
-+
-[source,bash]
-----
-rpm -q epel-release
-----
-
-NOTE: If your repository configurations are not distributed as an RPM, but instead as
-individual `.repo` files, you could use the `buildah copy` command to copy
-files from the host operating system into the container image.  You will see
-an example of using `buildah copy` later in this lab.
-
-[#software]
-== Installing Software
-
-
-. Now that the yum repositories are defined within the container, execute 
-another `yum install`, within the container, to install the target
-software: `moon-buggy`.
-
-+
-[source,bash]
-----
-buildah run ubi-working-container -- yum -y install moon-buggy
-----
-
-
-== Committing the Container Image
-
-. At this point, the container is configured.  It is time to transition from a
-working container into a committed image.  In the command below, you will use
-the `buildah` command to commit the working container to an image called:
-`moon-buggy`.
-
-+
-[source,bash]
-----
-buildah commit ubi-working-container moon-buggy
-----
-
-+
-. The output of `podman image list` should confirm the image was created.
-
-+
-[source,bash]
-----
-podman image list
-----
-
-
-== Deploy the Container
-
-Now the software has been installed and a new container image created.  It is
-time to spawn a runtime of the container image and validate the software.  The
-software we are using is a command line command.  
-
-. When you `run` the container,
-it will be in interactive (`-it`) mode, based on the `moon-buggy` container
-image and the command run interactively will be `/usr/bin/moon-buggy`.
-
-+
-[source,bash]
-----
-podman run -it moon-buggy /usr/bin/moon-buggy
-----
-
-+
 [source,textinfo]
 ----
-
-<<< OUTPUT ABRIDGED >>>
-               MM     MM   OOOOO    OOOOO   NN     N
-               M M   M M  O     O  O     O  N N    N
-               M  M M  M  O     O  O     O  N  N   N
-               M   M   M  O     O  O     O  N   N  N
-               M       M  O     O  O     O  N    N N
-               M       M   OOOOO    OOOOO   N     NN
-
-                     BBBBBB   U     U   GGGGG    GGGGG   Y     Y
-                     B     B  U     U  G     G  G     G   Y   Y
-                     BBBBBB   U     U  G        G          Y Y
-                     B     B  U     U  G   GGG  G   GGG     Y
-                     B     B  U     U  G     G  G     G    Y
-                     BBBBBB    UUUUU    GGGGG    GGGGG   YY
-
-<<< OUTPUT ABRIDGED >>>
+[user@myhost ~]$ sudo rhc connect -o 13959588 -a AK_Summit_Lab  +
+Connecting myhost.example.com to Red Hat. +
+This might take a few seconds. +
+● Connected to Red Hat Subscription Management +
+● Connected to Red Hat Insights +
+● Activated the Remote Host Configuration daemon +
+● Enabled console.redhat.com services: remote configuration, insights, compliance, remediations +
+Successfully connected to Red Hat! +
+Manage your connected systems: https://red.ht/connector +
+[user@myhost ~]$ 
 ----
 
-. You can now play the Moon Buggy game, which is a text-based version of the
-popular Moon Patrol.  When you are finished, use the `q` command to quit the
-game, which will terminate the container.
 
-+
-Alternatively, you can use `podman` to kill the running container from
-*Terminal 2*.
 
-+
-[source,bash]
+Your host is now connected to Red Hat and Insights.
+
+This system should now be visible in Insights. +
+Open up the Hybrid Cloud Console.
+
+
+=== Accessing Insights
+
+Log into the Hybrid Cloud Console with the following credentials: 
+
+
+User:
+[source,user]
 ----
-podman kill $(podman ps | grep -v CONTAINER | cut -f1 -d" " )
+lab-434C
 ----
+
+Password:
+[source,password]
+----
+R3dh4t2021!
+----
+
+
+This is the main page of the Hybrid Cloud Console.   
+There are several offerings available on the Hybrid Cloud Console including Red Hat Insights which is included with subscriptions for Red Hat Enterprise Linux, Red Hat OpenShift, and Red Hat Ansible Automation Platform.
+
+At this point you want to see the system that you just connected to Insights. +
+In order to do this, you need to go to the RHEL inventory.  
+
+In the search bar at the top of the page, type: Inventory
+
+There will be several matches.  Select: Inventory | Red Hat Insights 
+
+You will be redirected to the Systems view of the Inventory.   +
+This view shows you all of the RHEL hosts that the Hybrid Cloud Console knows about - not all of these systems are necessarily reporting to Insights.  
+
+In addition to Insights, subscription-manager (subman) and Red Hat Satellite also report systems to this inventory to give you a more complete view of your total RHEL estate.
+
+In the list of systems locate your host.  It should be near the top of the page since it was recently connected, but you can also use the “Filter by name” to easily find your system.  Click on the system name to view details about your system.
+
+The inventory view of your specific system will give you an idea of the type of information that Insights uses for its analysis.  
+
+Based on the information that is collected, Insights has analyzed the system and within the inventory view you can see select findings on the Advisor, Vulnerability, Compliance, Patch, and Resource Optimization tabs.   Not all of these tabs will initially have data - this is expected as some services like Compliance and Resource Optimization require additional configuration.  +
+We will spend more time on some of these in subsequent exercises.
+
+=== Data Collection and Security information
+
+Let’s end this activity with a brief discussion on data collection and security information +
+It should be reiterated that you have complete control over what information Insights for RHEL gathers - while we have exposed the hostname and IP addresses of the systems in the lab, this information is easily obfuscated via a switch in the client.   Additional information can also be obfuscated including keywords, patterns, and specific files.
+
+Information about data collection can be found on the Red Hat Insights data and application security page https://www.redhat.com/en/technologies/management/insights/data-application-security[https://www.redhat.com/en/technologies/management/insights/data-application-security]
+
+This page also will tell you how to do things like obfuscate data or perform a collection for inspection to see everything that Insights collects.
+
+It is also important to mention that in our lab we directly connected a system to Insights.  Port 443 is all that needed to be open.   A web proxy is supported.
+If you use Satellite, the connection is automatically proxied through capsules (if used) to the Satellite, then onto Insights.
+
+Additional information can be found in the frequently asked questions document at http://redhat.com/insightsfaq[http://redhat.com/insightsfaq] 
+
+This module is complete.
