@@ -1,138 +1,132 @@
-= Managing an Application from GitHub
+= Predictive and Proactive recommendations
 
-In the first half of this workshop, we packaged an application into this portable container format manually using rpms.
-In the second half, we will consider that you may want to manage software from GitHub or some kind of software versioning application.
-Rather than installing rpms, we have individual software files and pull them out of that version control into a group of systems.
+In this module you will look at the advisor service of Insights.   Advisor is the original Insights service that focuses on predictive and proactive recommendations that can help keep your systems running smoothly.
 
-== Install RHEL 8 UBI
+Your RHEL host is a RHEL 8 system that was created with a few packages pre-installed.  One of these is postgresql server, an object-relational database management system.  The postgresql server was started on the host, but no other actions have been taken for the postgresql environment.
 
-In this lab, we will be using a different Red Hat Enterprise Linux version in my container. 
+In Module 1 you briefly looked at the inventory for your system.  While that inventory view does have an advisor tab, we are going to navigate to the main Advisor service.
 
-. Verify the host system release 
+=== Viewing system recommendations
 
-+
+If you do not have the Hybrid cloud Console still open, please use a web browser to navigate to console.redhat.com. +
+ [Launch console.redhat.com]
+
+
+Log into the Hybrid Cloud Console with the following credentials: +
+User:
+
+Password:
+
+In the search bar, clear out any existing search query and type `advisor`. +
+This will result in several items.  Locate and click `Insights Advisor | Red Hat Insights`
+
+That will default you to the Recommendations page of Advisor.  
+
+https://console.redhat.com/insights/advisor/recommendations[https://console.redhat.com/insights/advisor/recommendations]
+
+This view shows you the recommendations of all systems connected to Insights. +
+In the upper right you have the option to download an executive report. +
+This report will show you a summary of recommendations by severity (critical, important, moderate, or low), recommendations by category (availability, performance, security, or stability), and the top 3 recommendations in your environment. +
+Feel free to download the executive report and take a look.
+
+The summary bar at the top of the Recommendations page shows you the number of Pathways (a group of multiple Advisor recommendations under common actions to power more efficient remediation), incidents (issues currently affecting your environment vs items that are proactive in nature), critical recommendations, and important recommendations.   +
+This summary bar helps you to focus on the items across your environment that are most impactful.
+
+Below this is the list of recommendations. +
+One thing to take note of is the default filters that are applied.
+
+The idea of these filters is that Insights focuses on showing you recommendations that are enabled (so we don’t show you disabled recommendations), and recommendations that impact the systems in your environment.   +
+If you are looking for a specific recommendation, you can search for it using the filter `Name` and by typing in a name.  For example, with the Name filter selected, type `kernel`.  This will show you all recommendations related to the kernel.   +
+Again - we are only showing you recommendations that affect your systems.
+
+Click `Reset filters` +
+Now using the Name filter, search for `SAP`. +
+There aren’t any SAP systems in this environment, so there are no recommendations listed. +
+If you are considering registering your SAP systems to Insights, maybe you want to see what recommendations we might have for SAP.   To see this, what you need to do is remove the `Systems impacted` filters.  Remove these by clicking the `x` next to each of the filters.  (leave the `Status: Enabled` filter for now.) +
+Now you will see all of the recommendations for SAP, even though you do not have any systems impacted.
+
+If you also remove the `sap` filter, you will see all enabled recommendations within the Advisor service. +
+You can also remove the `Status: Enabled` filter which will show you all of the recommendations regardless of status.  There should be no filter chips showing (~1600+ recommendations shown).
+
+When finished - click `Reset filters`.  This will return you to the default view.
+
+Let’s look at your RHEL system. +
+On the left hand navigation bar, under Operations then Advisor, click Systems
+
+NOTE: depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
+
+Locate your system in the list and select it. +
+This will show you the list of recommendations that are present on this system.
+
+You should see a recommendation for postgresql listed:
+`The postgresql database performance decreases when the tuned best practices are not applied` +
+Click on the recommendation to expand the details. +
+This will show you:
+
+* Why the issue was detected
+* What you need to do to resolve the issue
+* Any related knowledge base articles
+
+
+In this case, the postgresql server was started, but a tuned profile was not applied which means that the performance of the database isn’t optimal.
+
+To fix this, we install then apply the tuned profile.  The step by step directions are included, or you can generate an ansible playbook inside of Insights. +
+Not every recommendation or issue that Insights finds has a playbook, but most do.
+
+=== Generating a remediation playbook
+
+To generate the playbook, select the checkbox next to the recommendation. +
+Once the checkbox is selected, the Remediate button becomes available.
+
+
+If you click the remediate button it will launch a wizard that will create a playbook for you. +
+Click remediate.
+
+You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to Create new playbook.   Give your playbook a name like: `postgresql fix <yourhostname>`
+
+Note: please add some sort of unique identifier to the playbook name.  Above we suggest using your host’s unique hostname.  
+
+Click next. +
+At this time you are fixing this issue on a single system.  If it is possible to fix this on all impacted systems. +
+Click next. +
+Review the summary.  Notice that a reboot is not required to resolve this issue.   If a reboot was required you would have the option to disable the reboot in the playbook. +
+Click submit.
+
+At the bottom of the wizard there is a link that will allow you to `Open playbook` <name>.   +
+Click the link.  This will redirect you to the Remediations section of the Hybrid Cloud Console. +
+For context, in the left hand navigation bar you have just been redirected to `Automation Toolkit → Remediations`.
+
+For the remediations page, while looking at your remediation you created, you have a couple of options in the upper right. +
+The Execute playbook button is unavailable.  Your user in this lab does not have permission to execute remediation.  No user gets this permission by default - it has to be explicitly provided, With so many people potentially taking this lab at the same time we have opted to not enable this feature.  Your facilitator can demonstrate how this feature works.
+
+However you are able to use the Download playbook button.   Go ahead and click this now. +
+The playbook is downloaded via your browser.  You will need to extract the file then open the .yaml +
+As you look through the file you will note several signatures in the file.  These signatures are generated in the event that you choose to remediate through Insights - it prevents any manipulation of the file.
+
+Since you don’t have the permissions to execute through the remediations service, let’s return to the Advisor service and manually fix this issue.
+
+Using the left hand navigation bar go to: +
+Operations → Advisor → Systems +
+Find and select your system. +
+Click on the Postgresql recommendation.
+
+The recommendation will tell you step by step how to fix the issue.
+
+Switch to your ssh window and enter the commands on the system.  
+
 [source,bash]
 ----
-cat /etc/redhat-release
-----
-+ 
-NOTE: The `bastion` system is Red Hat Enterprise Linux 9, and when you built the previous container, you used the UBI9 image. This means both the image and the container were built off the same Red Hat Enterprise Linux packages. 
-
-. As we did previously in this lab, Use `buildah from` to pull down the Red Hat Enterprise Linux 8 UBI.
-
-+
-[source,bash]
-----
-buildah from registry.access.redhat.com/ubi8/ubi
+sudo subscription-manager repos --enable=rhel-8-for-x86_64-appstream-rpms
+sudo yum install tuned-profiles-postgresql -y
+sudo tuned-adm profile postgresql
+sudo tuned-adm active
+sudo tuned-adm verify
+sudo insights-client
 ----
 
-NOTE: Because you already pulled one image named `ubi-working-container` this one is called `ubi-working-container-1`. 
+When you have completed running these commands, refresh your browser window.   +
+The recommendation for postgresql should no longer be present. +
+When you fixed the issue then ran the `insights-client` command manually, a new analysis was performed. +
+Since the issue no longer exists it has been cleared from your view.
 
-[#prerequisites]
-== Install Prerequisites
-
-Now that you have a working container, you will use the same process as before installing all the prerequisites, changing config files, and manipulating the contents of this container to be in the desired state.
-
-The software you will install is a JavaScript-based game that runs on a web browser. As before in the lab, use dnf to install software inside the container. 
-
-. Use `buildah run` and install Apache (`httpd`) into the `ubi-working-container-1` container. 
-+
-[source,bash]
-----
-buildah run ubi-working-container-1 -- dnf -y install httpd
-----
-
-== Enable Service
-
-The next thing to do is to use a systemctl to enable the service. The ubi-init provides full systemd service to the container.
-This will start up any of the services that are enabled. 
-
-. Enable the `httpd` service using `buildah run`
-
-+
-[source,bash]
-----
-buildah run ubi-working-container-1 -- systemctl enable httpd
-----
-
-NOTE: The UBI standard image doesn't have systemd installed on it by default. The `ubi-init` container image does include systemd. Plan accordingly to which image you use to build applications.  
-
-== Explore Source Materials
-
-A GitHub repository has already been synchronized to `/home/devops/clumsy-bird/` This repository contains the configurations for your application.
-
-. Verify the repository is cloned inside the `/home/devops/` directory
-+
-[source,bash]
-----
-cd /home/devops/
-----
-
-+
-[source,bash]
-----
-git clone https://github.com/ellisonleao/clumsy-bird
-----
-+
-NOTE: The output states that the software has already been checked out. 
-+
-. Explore the JavaScript contents, index files, and everything else that we need for this web-based JavaScript software.
-+
-[source,bash,role=execute]
-----
-ls clumsy-bird
-----
-
-== Add Source Materials to Container
-
-. Now that you have verified the source materials exist, you will put the software inside of my container image using the `buildah copy` command.
-+
-[source,bash]
-----
-buildah copy ubi-working-container-1 clumsy-bird /var/www/html
-----
-
-[#container]
-== Enable Container in Background
-
-In the previous section of this lab, you ran the game natively through interactive mode. Because you are now building a web application you will need to run the container in the background and access it through a web address. 
-
-. Execute `buildah config` to specify a port and initialize the container. 
-
-+
-[source,bash]
-----
-buildah config --port 80 --cmd "/usr/sbin/init" ubi-working-container-1
-----
-
-NOTE: The command makes a configuration change to this container. I'm configuring this container to accept connections to its port 80. When the container starts up, it should run the init command, which, in this case, is going to be the Apache daemon right from earlier when I enabled it.
-
-== Commit Container and Deploy
-
-. Now that we have a container in a working configured state, it is time to make that permanent by committing it to a container image called `clumsy-bird`
-+
-[source,bash]
-----
-buildah commit ubi-working-container-1 clumsy-bird
-----
-
-. Verify that the image was created with `podman`
-+
-[source,bash]
-----
-podman images
-----
-+
-. Run the container Now it's time to run the container. 
-+
-[source,bash]
-----
-podman run -d -p 8500:80 clumsy-bird
-----
-
-== Verify Application
-
-Verify that the application is running by navigating to
-
-http://bastion.{guid}.example.opentlc.com:8500
-
+This module is complete.
