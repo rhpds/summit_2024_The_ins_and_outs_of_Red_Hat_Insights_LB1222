@@ -1,5 +1,11 @@
 = {lab_name}
 
+This lab will take you through a journey through the ins and outs of Red Hat Insights.
+Your RHEL host will be the primary focus of this lab, and you will be using a user account that has access to all of the services of Insights, however to provide the best experience for all users there are some actions you will not be able to do in the lab - these can be demonstrated by your facilitator.
+
+
+== OLD
+
 The `lab_name` var, known as an asciidoc attribute, above was set in `./content/antora.yml` and can be used to set the lab_name or title of your content.
 You are both free to change its value and if you prefer to use a different var name, you can change the value of `lab_name`, for example to `title` in `./content/antora.yml` and then reference it in your content as `\{title}`. +
 
