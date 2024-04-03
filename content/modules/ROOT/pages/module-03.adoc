@@ -76,7 +76,7 @@ Status options are:
 You can also add a justification note to indicate any details about the status that you select. +
 Click `Cancel` so that you make no changes at this time.
 
-Locate the export button (just to the right of the Remediate button).  If looks like this:
+Locate the export button (just to the right of the Remediate button).  It looks like this:
 
 image::Insights_Export_Button.png[ExportButton,85%,85%] 
 
