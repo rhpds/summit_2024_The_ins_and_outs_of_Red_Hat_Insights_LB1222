@@ -5,3 +5,7 @@
 * xref:module-03.adoc[3. Vulnerability]
 
 * xref:module-04.adoc[4. Malware Detection]
+
+* xref:module-05.adoc[5. Identifying Drift]
+
+* xref:module-06.adoc[6. Content and Patching]
