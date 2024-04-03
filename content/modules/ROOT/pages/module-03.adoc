@@ -13,10 +13,11 @@ On the left hand navigation bar go to `Security → Vulnerability → CVEs`
 
 The summary bar at the top of the page helps you focus on the more impactful issues in your environment.  If you have a high number of CVEs in your environment, this summary bar highlights the biggest risks that you should likely focus on addressing first.  Clicking on any of the numbers in the summary bar will apply filters that will show you these CVEs.
 
-image::Vuln_SummaryBar.png[Vuln_SummaryBar,55%,55%]
+image::Vuln_SummaryBar.png[Vuln_SummaryBar,85%,85%]
 
 NOTE: The numbers you see may not match what is shown in the screenshot above.
 
+Here is an explanation of the items in the summary bar:
 * `CVEs with known exploits` indicate unpatched CVEs with known public exploits.  CVEs with this label should be addressed with high priority due to the risks posed by them. "Known exploit" does not mean we have taken steps to determine if the CVE has been exploited in your environment.
 * `CVEs with Security rules` indicate CVEs that have gone through the "Product Security Incident Response Plan" that takes a deeper look at impactful CVEs and adds deep threat intelligence on how the vulnerability impacts Red Hat systems.  This could include things like executive summaries, alternative mitigation strategies, and related CVEs that need to be considered.  Insights takes this information and makes it more succinct through the use of what we call security rules.  
 * `CVEs with critical severity` are CVEs with critical severity.  Critical ratings are given to flaws that could be easily exploited by a remote unauthenticated attacker and lead to system compromise (arbitrary code execution) without requiring user interaction. These are the types of vulnerabilities that can be exploited by worms. 
@@ -25,7 +26,7 @@ NOTE: The numbers you see may not match what is shown in the screenshot above.
 
 The default view also applies a number of filters.
 
-image::Vuln_DefaultFilters.png[Vuln_SummaryBar,55%,55%]
+image::Vuln_DefaultFilters.png[Vuln_SummaryBar,85%,85%]
 
 * The first filter chips show you only CVEs that affect `1 or more systems` in your infrastructure.  This could be a Conventional (RPM-DNF based) system or an Immutable (OSTree based) system.  
 * The second filter only shows you CVEs with an `advisory available`.  That means you are looking at vulnerabilities that you can fix.
@@ -34,26 +35,31 @@ image::Vuln_DefaultFilters.png[Vuln_SummaryBar,55%,55%]
 
 Let’s say your security team recently heard about a vulnerability that affects SQLlite3 and they want to know if we have any systems with this vulnerability.  The CVE number is   `CVE-2023-7104`.
 
-From the vulnerability page the default filter is CVE (located to the right of the empty checkbox in the image above).  You can type the CVE number in the search box OR even a common search term that might be present in the CVE description like sqlite.   +
+From the vulnerability page the default filter is CVE (located to the right of the empty checkbox in the image above).  You can type the CVE number in the search box OR even a common search term that might be present in the CVE description like `sqlite`.   +
 * In the search box type `7104`. +
 * This will return `CVE-2023-7104` (and possibly others). +
 * Notice that a new filter chip has been added for 'Search term: 7104' +
 * In the row with the CVE ID you will see basic information about the CVE including the number of systems that are impacted by the CVE. +
 * Click on the CVE ID.
 
-image::Vuln_CVE20237104.png[Vuln_SummaryBar,55%,55%]
+image::Vuln_CVE20237104.png[Vuln_SummaryBar,85%,85%]
 
 In the image above you will see that this CVE impacts 34 total systems in the environment.  + 
-NOTE: You will see a different number and that is ok!  The next few steps will reference the number in the screenshot above.
+
+NOTE: You will see a different number and that is expected!  The next few steps will reference the number in the screenshot above.
 
 With 34 total systems, 17 of them are conventional systems.  If you click Immutable there are an additional 17 systems.
 
 In the upper right of the page you will see a `Business risk` and a `Status`.  In the screenshot above they are shown as `Not defined` and `Not reviewed` respectively.  
 
+NOTE: You may see a different Business risk or Status than `Not defined` or `Not reviewed`.  That is ok.
+
 `Business risk` is intended for you to be able to define a risk that is specific to your business - this CVE is tagged with a severity of moderate, but if you have a workload that is deeply affected by this vulnerability, then this may be a more critical issue for you.   +
 If you click `Actions` in the upper right you will have the option to `Edit business risk`.  Click this option. +
 You can set the business risk to: Critical, High, Medium, Low, or Not defined.  You can also add a justification note as to why you set the business risk.   +
-Click cancel so that you make no changes at this time.
+Click `Cancel' so that you make no changes at this time.
+
+NOTE: You aren't making any changes so that you don't impact what other people taking the lab might see.  If you change the status of the CVE then it will change for other people
 
 Similarly, if you click `Actions` in the upper right you will have the option to `Edit status`. Click this option. +
 You can use the status field to identify where you are in the mitigation process.   +
@@ -66,11 +72,11 @@ Status options are:
 * Resolved
 * No action - risk accepted
 * Resolved via mitigation
+
 You can also add a justification note to indicate any details about the status that you select. +
-Click cancel so that you make no changes at this time.
+Click `Cancel` so that you make no changes at this time.
 
-
-If you click the export button (just to the right of the Remediate button) you have the option to export this list into CSV or JSON formats.  The export view is WYSIWYG (what you see is what you get), so an export on the Conventional tab will show you only the 17 conventional systems.
+If you click the export button image::Insights_Export_Button.png[ExportButton,85%,85%] (just to the right of the Remediate button) you have the option to export this list into CSV or JSON formats.  The export view is WYSIWYG (what you see is what you get), so an export on the `Conventional (RPM-DNF)` tab will show you only the RPM/DNF based systems.
 
 In other words, getting a list of systems impacted by a vulnerability takes just seconds - search for the CVE then export the list of impacted systems.
 
@@ -79,19 +85,21 @@ In other words, getting a list of systems impacted by a vulnerability takes just
 If you want to take this a step further, you can also go ahead and create a remediation plan for this CVE.   +
 You can select specific systems in the list of affected hosts, or, just click the checkbox at the top of the page (to the left of the Name filter in the screenshot above) then choose select all.  
 
+NOTE: The following steps are for Conventional (RPM-DNF) based systems.  Immutable (OSTree) systems are image based and you update the image vs making system changes.
+
 Once you have hosts selected, click the remediate button which will launch a wizard that will create a playbook for you.
 
 You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to Create new playbook.   Give your playbook a name like: '7104 fix <yourhostname>'
 
-Note: please add some sort of unique identifier to the playbook name.  Above we suggest using your host’s unique hostname even though we are selecting multiple hosts..  
+NOTE: Please add some sort of unique identifier to the playbook name.  Above we suggest using your host’s unique hostname even though we are selecting multiple hosts.  
 
-Click next. +
-At this time you are fixing this issue on all affected systems.  Click next. +
+Click `Next`. +
+At this time you are fixing this issue on all affected systems.  Click `Next`. +
 Review the summary.  Notice that a reboot is required to resolve this issue.  
 You do have the option to disable the reboot in the playbook by clicking the `Turn off autoreboot` text in blue. +
-Click submit.
+Click `Submit`.
 
-At the bottom of the wizard there is a link that will allow you to `Open playbook` <name>.   +
+At the bottom of the wizard there is a link that will allow you to `Open playbook <name>`.   +
 Click the link.  This will redirect you to the Remediations section of the Hybrid Cloud Console. +
 For context, in the left hand navigation bar you have just been redirected to `Automation Toolkit → Remediations`.
 
@@ -103,27 +111,37 @@ The playbook is downloaded via your browser.  You will need to extract the file 
 
 This playbook can help simplify the resolution of this issue - you could easily adapt this to run via ansible automation or sync this playbook with Ansible Automation Platform (AAP) - this is covered in the AAP documentation but we are not covering it in this lab.
 
+Close the playbook and return to the Hybrid Cloud Console browser window.
+
 == List all CVEs on your system
 
 Let’s return to the vulnerability page and look at your specific host with the goal of getting a list of all CVEs that affect your specific host.
 
 On the left hand navigation bar go to `Security → Vulnerability → Systems` +
+
+NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
+
 Locate your host and select it.
+Reminder: your system name is: {bastion_hostname} 
 
 This view will show you all of the vulnerabilities present on this specific host.    +
 Notice that the default filter applied is `Advisory: Available`.   +
 This means we are showing you all CVEs that have an advisory available (in other words - we are showing you all of the vulnerabilities that you can fix). +
 Because we are showing you only CVEs with advisories, in the remediation column on the far right, almost every CVE has the option for a remediation playbook - meaning Insights can generate a playbook for almost all of these CVEs.
 
+If you just need the list of CVEs that you can fix - exporting this list will get you what you need. +
+However, sometimes you need a complete list of system vulnerablities - the CVEs with and without errate. + 
+Insights can show you this information as well.
+
 Take note of the number of CVEs listed for the host.  These are shown in the upper right side of the list of CVEs. +
 Now - click the `x` to the right of the `Advisory: Available` filter chip to remove it.   +
 This will show you all CVEs in the database that affect this system - with and without advisories. +
-Look again at the number of CVEs - the number is significantly larger.
+Look again at the number of CVEs - the number is significantly larger, probably more than double!
 
 If you need a complete view of all vulnerabilities on the host, you can now export this view.   +
 The advisory column will tell you if the CVE has an advisory available to resolve the CVE.  
 
- If you click the export button (just to the right of the Remediate button) you have the option to export this list into CSV or JSON formats.
+If you click the export button (just to the right of the Remediate button) you have the option to export this list into CSV or JSON formats.
 
 Again - you can get a list of all of the CVEs that impact a specific system very quickly.
 
@@ -139,26 +157,28 @@ There are two types of reports - an executive report and a customizable CVE repo
 Start with the executive report - click `Download PDF`. +
 The PDF file will be downloaded via your browser.   Locate and open the report. +
 The executive report shows you a summary of the systems, CVEs, and security rules. +
-The report then breaks down the CVEs by CVSS score, identifies the top 3 CVEs in your environment, and the top 3 security rules. +
+The report then breaks down the CVEs by CVSS (Common Vulnerability Scoring System) score, identifies the top 3 CVEs in your environment, and the top 3 security rules. +
 This is a nice pre canned report that you can send to your management or security team.  +
-Close the report and return to the reports page of the hybrid cloud console.
+Close the report and return to the reports page of the Hybrid Cloud Console.
 
 The information in the executive report may not exactly meet your needs, which is where the customizable report comes in.   +
-Let’s say you have been asked to provide the security team with a list of all vulnerabilities with a CVSS score from 6-10 that have been released in the last 90 days.
+Let’s say you have been asked to provide your security team with a list of all vulnerabilities with a CVSS score from 6-10 that have been released in the last 90 days.
 
-Under Report by CVEs click “Create report”.
+Under `Report by CVEs` click “Create report”.
 
 This opens a window where you can identify what you want the report to contain. +
 
-image::Vuln_CustomReport.png[Vuln_SummaryBar,55%,55%]
+image::Vuln_CustomReport.png[Vuln_SummaryBar,85%,85%]
 
-If desired you can change the report title.
+If desired you can change the `Report title`.
 
-Locate the CVSS base score filter and change this to read 6.0 - 10. +
-Locate Publish data and select the last 90 days. +
-Add user notes if desired. +
-Click Export report. +
+Locate the `CVSS base score` filter and change this to read 6.0 - 10 (you can type in the number or use the arrows). +
+Locate `Publish date` and select the `Last 90 days`. +
+Add `User notes` if desired. +
+Click `Export report`. +
 The PDF file will be downloaded via your browser.   Locate and open the report. +
 This report will show you the information that you selected - in this case all CVEs with a CVSS base score between 6.0 and 10 within the last 90 days.
+
+When finished reviewing, close the report and return to the Hybrid Cloud Console.
 
 This module is complete.
