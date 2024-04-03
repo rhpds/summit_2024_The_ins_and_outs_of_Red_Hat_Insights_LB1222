@@ -1,4 +1,4 @@
-= Predictive and Proactive recommendations
+= Predictive and proactive recommendations
 
 In this module you will look at the advisor service of Insights.   Advisor is the original Insights service that focuses on predictive and proactive recommendations that can help keep your systems running smoothly.
 
@@ -9,7 +9,6 @@ In Module 1 you briefly looked at the inventory for your system.  While that inv
 === Viewing system recommendations
 
 If you do not have the Hybrid cloud Console still open, please use a web browser to navigate to console.redhat.com. +
- [Launch console.redhat.com]
 
 
 Log into the Hybrid Cloud Console with the following credentials: +
@@ -20,42 +19,114 @@ Password:
 In the search bar, clear out any existing search query and type `advisor`. +
 This will result in several items.  Locate and click `Insights Advisor | Red Hat Insights`
 
-That will default you to the Recommendations page of Advisor.  
+NOTE: “Advisor” is different from “Advisories”.  Make sure you select Advisor for this exercise.
 
-https://console.redhat.com/insights/advisor/recommendations[https://console.redhat.com/insights/advisor/recommendations]
+That will default you to the https://console.redhat.com/insights/advisor/recommendations[Recommendations page] of Advisor.  
+
 
 This view shows you the recommendations of all systems connected to Insights. +
 In the upper right you have the option to download an executive report. +
 This report will show you a summary of recommendations by severity (critical, important, moderate, or low), recommendations by category (availability, performance, security, or stability), and the top 3 recommendations in your environment. +
-Feel free to download the executive report and take a look.
+Click `Download executive report` to download the executive report and take a look.
+You will need to save the file locally, then open it to view.
+Review the executive report.   When finished, close it and return to the Hybrid Cloud Console.
 
-The summary bar at the top of the Recommendations page shows you the number of Pathways (a group of multiple Advisor recommendations under common actions to power more efficient remediation), incidents (issues currently affecting your environment vs items that are proactive in nature), critical recommendations, and important recommendations.   +
-This summary bar helps you to focus on the items across your environment that are most impactful.
+This summary bar helps you to focus on the items across your environment that are most impactful. +
+Located at the top of the Recommendations page, this summary bar shows you:
 
-Below this is the list of recommendations. +
+* `Pathways` - a group of multiple Advisor recommendations under common actions to power more efficient reslution of issues.
+* `Incidents` - issues currently affecting your environment vs items that are proactive in nature.
+* `Critical recommendations` - issues where the total risk of this remediation is critical, based on the combination of likelihood to occur and impact to remediate.
+* `Important recommendations` - issues where the total risk of this remediation is important, based on the combination of likelihood to occur and impact to remediate.
+
+Below this is the list of Recommendations as well as a tab for Pathways. +
 One thing to take note of is the default filters that are applied.
 
-The idea of these filters is that Insights focuses on showing you recommendations that are enabled (so we don’t show you disabled recommendations), and recommendations that impact the systems in your environment.   +
+image::Advisor_deafultfilters.png[Advisor_defaultfilters,85%,85%]
+
+The idea of these filters is that Insights focuses on showing you recommendations that are enabled (so we don’t show you disabled recommendations), and recommendations that impact the systems in your environment. Each filter listed is called a chip. +
+
+The default filters are:
+* `Status: Enabled` - You are looking at Recommendations that are enabled (not diabled)
+* `Systems impacted: 1 or more` - There are actually two filter chips here - one for `1 or more Immutable (OSTree)` and `1 or more Conventional (RPM-DNF)`.  These show under the same area but can be added or removed independently.
+
 If you are looking for a specific recommendation, you can search for it using the filter `Name` and by typing in a name.  For example, with the Name filter selected, type `kernel`.  This will show you all recommendations related to the kernel.   +
 Again - we are only showing you recommendations that affect your systems.
 
+image::Advisor_kernelfilter.png[Advisor_kernelfilter,85%,85%]
+
+In the image above note that searching for `kernel` added a new filter chip.  All of the default filters remain.
+
 Click `Reset filters` +
+This resets the filters back to the defaults.
+
 Now using the Name filter, search for `SAP`. +
 There aren’t any SAP systems in this environment, so there are no recommendations listed. +
+
+image::Advisor_no_sap_recco.png[Advisor_no_sap_recco,85%,85%]
+
 If you are considering registering your SAP systems to Insights, maybe you want to see what recommendations we might have for SAP.   To see this, what you need to do is remove the `Systems impacted` filters.  Remove these by clicking the `x` next to each of the filters.  (leave the `Status: Enabled` filter for now.) +
+
+NOTE:  Remove both `Systems impacted` filters - Immutable and Conventional.
+
 Now you will see all of the recommendations for SAP, even though you do not have any systems impacted.
 
+image::Advisor_all_sap_recco.png[Advisor_all_sap_recco,85%,85%]
+
 If you also remove the `sap` filter, you will see all enabled recommendations within the Advisor service. +
-You can also remove the `Status: Enabled` filter which will show you all of the recommendations regardless of status.  There should be no filter chips showing (~1600+ recommendations shown).
+You can also remove the `Status: Enabled` filter which will show you all of the recommendations regardless of status.  There should be no filter chips showing (~1700+ recommendations shown).
+
+NOTE: Insights gets updated frequently and new recommendations get added all the time.  There is no list of recommendations outside of the Hyrbid Cloud Console.  If you are looking to find if we have recommendations for specific situations or workloads, filtering the list of recommendations is the best and most up to date way.
+
+You can search for topics you are interested in by using these filters.
 
 When finished - click `Reset filters`.  This will return you to the default view.
 
-Let’s look at your RHEL system. +
-On the left hand navigation bar, under Operations then Advisor, click Systems
+== Topics
 
-NOTE: depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
+In addition to using the filters, the Advisor service has a curated list of common workloads that Insights refers to as Topics.
+On the left hand navigation bar, click Operations to expand it, then click Advisor, then click Topics.  
+From this point forward this will be shown as: Operations --> Advisor --> Topics
+
+NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
+
+In the Topics section you see a list of common workloads that the Advisor service can help with.
+You just took a look at SAP recommendations, but you can also look at the SAP topic.
+
+Locate then click `SAP`
+You should see "No recommendations" as you don't have any SAP systems in this environment.
+Remove the `Systems impacted` filter(s) and you should see all of the SAP recommendations
+
+NOTE: A bug was observed during testing where the `Systems impacted` filters were not showing.  If you do not see these filters, tap `Reset filters` and they should show up.
+
+Return to the Topics page
+On the left hand navigation bar go to Operations --> Advisor --> Topics
+
+Find the `PostgreSQL` topic.
+Notice that several systems are reporting a recommendation for this topic.
+Select the `PostgreSQL` topic.
+You will see a topic `The postgresql database performance decreases when the tuned best practices are not applied`
+Click the arrow to the left of the topic to expand out the details.
+
+image::Advisor_Postgrestopic.png[Advisor_Postgrestopic,85%,85%]
+
+NOTE: The number of affected systems that you see will vary from what is shown in the screenshot above.  That is expected.
+
+From this view you can see a little detail about the recommendation, a link to a KB (knowledgebase) article on the issue, a total risk, and a risk of making a change to fix the issue.  You can also see if a system reboot is required to fix the issue and if an ansible playbook is available to help fix the issue.
+
+Specifics of how to fix are not shown in this view as there may be differences on how to fix depending on the version of RHEL.  Version specific advise is given once you look at a specific system that has this issue, which is what you will do next.
+
+
+== Recommendations on your system
+
+Let’s look at your RHEL system. +
+On the left hand navigation bar, click Operations --> Advisor --> Systems
+
+NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
 
 Locate your system in the list and select it. +
+Reminder: your system name is: {bastion_hostname}
+
 This will show you the list of recommendations that are present on this system.
 
 You should see a recommendation for postgresql listed:
@@ -83,27 +154,40 @@ If you click the remediate button it will launch a wizard that will create a pla
 Click remediate.
 
 You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to Create new playbook.   Give your playbook a name like: `postgresql fix <yourhostname>`
+Reminder: your system name is: {bastion_hostname}
+
 
 Note: please add some sort of unique identifier to the playbook name.  Above we suggest using your host’s unique hostname.  
 
 Click next. +
-At this time you are fixing this issue on a single system.  If it is possible to fix this on all impacted systems. +
+At this time you are fixing this issue on a single system.  It is possible to fix this on all impacted systems, but you will do that in a later exercise. +
 Click next. +
 Review the summary.  Notice that a reboot is not required to resolve this issue.   If a reboot was required you would have the option to disable the reboot in the playbook. +
 Click submit.
 
-At the bottom of the wizard there is a link that will allow you to `Open playbook` <name>.   +
+At the bottom of the wizard there is a link that will allow you to `Open playbook <name>`.   +
 Click the link.  This will redirect you to the Remediations section of the Hybrid Cloud Console. +
 For context, in the left hand navigation bar you have just been redirected to `Automation Toolkit → Remediations`.
 
 For the remediations page, while looking at your remediation you created, you have a couple of options in the upper right. +
-The Execute playbook button is unavailable.  Your user in this lab does not have permission to execute remediation.  No user gets this permission by default - it has to be explicitly provided, With so many people potentially taking this lab at the same time we have opted to not enable this feature.  Your facilitator can demonstrate how this feature works.
+The Execute playbook button is unavailable.  
+Hover your mouse over the greyed out button and you should see a message explaining why.
 
-However you are able to use the Download playbook button.   Go ahead and click this now. +
+Your user in this lab does not have permission to execute remediation.  
+No user in the Hybrid Cloud Console gets this permission by default - even organization administrators.  
+it has to be explicitly provided. 
+With so many people potentially taking this lab at the same time we have opted to not enable this feature.  
+Your facilitator can demonstrate how this feature works.
+
+However you are able to use the `Download playbook` button.   Go ahead and click this now. +
 The playbook is downloaded via your browser.  You will need to extract the file then open the .yaml +
 As you look through the file you will note several signatures in the file.  These signatures are generated in the event that you choose to remediate through Insights - it prevents any manipulation of the file.
 
+When you are done looking at the playbook, close it and return to the Hybrid Cloud Console.
+
 Since you don’t have the permissions to execute through the remediations service, let’s return to the Advisor service and manually fix this issue.
+
+== Manual Remediation
 
 Using the left hand navigation bar go to: +
 Operations → Advisor → Systems +
@@ -114,15 +198,15 @@ The recommendation will tell you step by step how to fix the issue.
 
 Switch to your ssh window and enter the commands on the system.  
 
-[source,bash]
+[source,sh,role=execute]
 ----
-sudo subscription-manager repos --enable=rhel-8-for-x86_64-appstream-rpms
 sudo yum install tuned-profiles-postgresql -y
 sudo tuned-adm profile postgresql
 sudo tuned-adm active
-sudo tuned-adm verify
 sudo insights-client
 ----
+
+NOTE: The onscreen directions will also include a `tuned-adm verify` command.  Due to the lab setup this verification will fail and needs a reboot to succeed.  We don't want to reboot the lab system as it isn't necessary for the fix in this environment, but in a production environment it should be used.
 
 When you have completed running these commands, refresh your browser window.   +
 The recommendation for postgresql should no longer be present. +
