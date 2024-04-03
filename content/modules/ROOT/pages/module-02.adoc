@@ -12,9 +12,18 @@ If you do not have the Hybrid cloud Console still open, please use a web browser
 
 
 Log into the Hybrid Cloud Console with the following credentials: +
+
 User:
+[source,sh,role=execute]
+----
+lab-434C
+----
 
 Password:
+[source,sh,role=execute]
+----
+R3dh4t2021!
+----
 
 In the search bar, clear out any existing search query and type `advisor`. +
 This will result in several items.  Locate and click `Insights Advisor | Red Hat Insights`
@@ -86,7 +95,7 @@ When finished - click `Reset filters`.  This will return you to the default view
 
 In addition to using the filters, the Advisor service has a curated list of common workloads that Insights refers to as Topics.
 On the left hand navigation bar, click Operations to expand it, then click Advisor, then click Topics.  
-From this point forward this will be shown as: Operations --> Advisor --> Topics
+From this point forward this will be shown as: `Operations --> Advisor --> Topics`
 
 NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
 
