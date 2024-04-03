@@ -1,7 +1,7 @@
-* xref:module-01.adoc[1. RPM Native Container]
-** xref:module-01.adoc#repositories[Repositories]
-** xref:module-01.adoc#software[Software]
+* xref:module-01.adoc[1. Registration and initial use]
 
-* xref:module-02.adoc[2. GitHub Sourced Container]
-** xref:module-02.adoc#prerequisites[Install Prerequisites]
-** xref:module-02.adoc#container[Enable Container]
+* xref:module-02.adoc[2. Predictive and proactive recommendations]
+
+* xref:module-03.adoc[3. Vulnerability]
+
+* xref:module-04.adoc[4. Malware Detection]
