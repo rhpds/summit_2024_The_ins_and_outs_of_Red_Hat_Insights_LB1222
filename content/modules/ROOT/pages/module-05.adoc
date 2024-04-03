@@ -8,7 +8,7 @@ The Drift service uses what we call baselines made up out of system facts to ide
 
 NOTE: Make sure you complete this module after you complete the Advisor module.
 
-===Baselines
+== Baselines
 
 A baseline can be very simple or can be very complex.  Baselines can be created from scratch (where you identify the specific facts you want to compare against), can be copied from an existing baseline then edited, or can be copied from an existing system and then edited.   +
 Your user in the lab does not have the permissions to create or edit baselines, but a baseline has already been created for you to use.
@@ -35,8 +35,8 @@ NOTE:  You cannot add additional files or data to a baseline or to comparisons. 
 == Comparing a system to a baseline
 
 Let’s compare your system to the baseline you just looked at. +
-On the left hand navigation bar go to Operations → Drift → Comparison +
-Click Add systems or baselines. +
+On the left hand navigation bar go to `Operations → Drift → Comparison` +
+Click `Add systems or baselines`. +
 Locate your system in the list and select the checkbox to the left of it to select it. +
 Reminder: your system name is: {bastion_hostname}
 
@@ -66,12 +66,12 @@ As you can see, the only differences between the systems are fqdn, network inter
 
 In the Advisor exercise you set the tuned profile to work with the postgresql database and you can see that reflected here as it is a deviation from the baseline.
 
-To the right of the “Add to comparison” button you can click the export icon to export the comparison to csv or json for later use.
+To the right of the `Add to comparison` button you can click the export icon to export the comparison to csv or json for later use.
 
 == Comparing a system to a system
 
 Let’s compare your system to another system.   +
-Assuming you have the previous comparison already open, click the X to the right of the baseline to remove it from your view.
+Assuming you have the previous comparison already open, click the `x` to the right of the baseline to remove it from your view.
 
 NOTE: If you are following along you will have your filters set to `Different` and Incomplete data`.  Since there is only one system open you will no longer see any system facts displayed.  You can optionally click `Reset filters` and you will see all system facts.  Remember to remove `Same` for the steps below.
 
@@ -84,7 +84,7 @@ The `dur` systems are very different from the lab systems you are using. +
 You can easily compare the differences between your system and this other system.   +
 If you are comparing a system created by someone else taking this lab the systems may be identical.
 
-To the right of the “Add to comparison” button you can click the export icon to export the comparison to csv or json for later use.
+To the right of the `Add to comparison` button you can click the export icon to export the comparison to csv or json for later use.
 
 == Comparing a system to historical data
 
@@ -108,7 +108,7 @@ image::Drift_comparison.png[Drift_comparison,85%,85%]
 
 Along with the tuned profile change, you may also notice changes in running processes and other areas.
 
-To the right of the “Add to comparison” button you can click the export icon to export the comparison to csv or json for later use.
+To the right of the `Add to comparison` button you can click the export icon to export the comparison to csv or json for later use.
 
 These comparisons and the Drift service can be helpful in identifying system changes.  
 
