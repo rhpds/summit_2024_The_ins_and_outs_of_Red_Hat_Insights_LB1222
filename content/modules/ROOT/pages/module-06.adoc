@@ -1,0 +1,206 @@
+= Content
+
+In this module you will look briefly at the content options offered in Insights.  These are primarily offered by the Patch service, but allow you to look at advisories, packages, and repositories as well as patching. +
+System patching is one of the most common use cases and there are several ways to patch a system.   +
+Insights is working on new capabilities in this area, so this section is purposefully kept light at this time in certain areas.
+
+Advisories, Packages, and Repositories sections of Insights start with the perspective of the advisory, package, or repo.  For example you would look at a specific advisory first then see what systems are impacted by the advisory. +
+The Patch section of Insights looks at system specific information first. You select a system and see what advisories are on the system.
+
+The information is similar, but you can go about accessing the information differently depending on your needs.
+
+== Advisories
+
+
+If you are not familiar with Advisories or Errata, Red Hat uses the terms interchangeably.  Essentially an Advisory is a notice of an issue that needs to be addressed, while an errata is the packaged release fix.  The https://access.redhat.com/articles/explaining_redhat_errata[Explaining Red Hat Errata knowledgebase article] explains this well.
+
+Insights contains a list of the advisories that affect systems in your environment.  
+
+To begin using the left hand navigation bar go to: +
+`Content → Advisories`
+
+NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
+
+
+The summary bar at the top tells you about the most impactful advisories in your environment - these are the ones you likely want to focus on resolving first.
+
+Let’s say you need to understand the impact of `RHSA-2024-0256` which is a python3 security advisory.
+
+In the filters section make sure `Advisory` is selected then type `0256`. +
+In the results find and locate `RHSA-2024-0256` then click it. +
+This is probably also listed as one of the most impactful advisories in this environment.
+
+The advisory will list out details of the advisory, will link you to any associated links at access.redhat.com, and will let you know about any CVEs associated with the advisory.
+
+In the systems section, all of the systems impacted by this advisory are listed.  You can click the export button to export this list out to csv or json.
+
+=== Generating a remediation playbook
+
+If you want to take this a step further, you can also go ahead and create a remediation plan for this Advisory.   +
+You can select specific systems in the list of affected hosts, or, just click the checkbox at the top of the page (to the left of the System filter) then choose select all.  
+
+Once you have hosts selected, click the remediate button which will launch a wizard that will create a playbook for you.
+
+You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to `Create new` playbook.   Give your playbook a name like: `0256 fix <yourhostname>`
+
+Reminder: your system name is: {bastion_hostname}
+
+NOTE: Please add some sort of unique identifier to the playbook name.  Above we suggest using your host’s unique hostname even though we are selecting multiple hosts.
+
+Click `Next’. +
+At this time you are fixing this issue on all affected systems.  Click `Next`. +
+Review the summary.  Notice that a reboot is not required to resolve this issue.  
+Click `Submit`.
+
+At the bottom of the wizard there is a link that will allow you to `Open playbook <name>`.   +
+Click the link.  This will redirect you to the Remediations section of the Hybrid Cloud Console. +
+For context, in the left hand navigation bar you have just been redirected to `Automation Toolkit → Remediations`.
+
+For the remediations page, while looking at your remediation you created, you have a couple of options in the upper right. +
+The Execute playbook button is unavailable.   +
+Hover your mouse over the greyed out button and you should see a message explaining why.
+
+Your user in this lab does not have permission to execute remediation.   +
+No user in the Hybrid Cloud Console gets this permission by default - even organization administrators.   +
+it has to be explicitly provided.  +
+With so many people potentially taking this lab at the same time we have opted to not enable this feature.   +
+Your facilitator can demonstrate how this feature works.
+
+However you are able to use the `Download playbook` button.   Go ahead and click this now.  +
+The playbook is downloaded via your browser.  You will need to extract the file then open the .yaml  +
+As you look through the file you will note several signatures in the file.  These signatures are generated in the event that you choose to remediate through Insights - it prevents any manipulation of the file.
+
+This playbook can help simplify the resolution of this issue - you could easily adapt this to run via ansible automation or sync this playbook with Ansible Automation Platform (AAP) - this is covered in the AAP documentation but we are not covering it in this lab.
+
+When you are done looking at the playbook, close it and return to the Hybrid Cloud Console.
+
+== Packages
+
+Next let's take a look at packages that are present in your environment. +
+Let’s say you need to know how many systems in your environment are using the `postgresql-server` package.  Insights can make it very quick and easy to find this info.
+
+Go to: `Content → Packages`
+
+NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
+
+Take a look at the default filters that are applied.   This default view shows you packages that have patches available.   The patches may be:
+
+* `Applicable` - This means it applies to the system even if the patch cannot be installed due to content settings. +
+* `Installable` - This means that the patch is applicable and available to be installed.
+
+If you remove this filter then you will see all packages in your environment regardless of if the package needs to be patched or not.
+
+The information on this screen can be exported to CSV or JSON and like in other pages the export is WYSIWYG (what you see is what you get).
+
+In the filter select patch status. In the drop down to the right select `Systems with patches available` +
+This returns you to the default view.
+
+In the filter next to `Package` type in `postgres`. +
+These results are returned regardless if `postgres` is in the package name or if they are in the summary description.   +
+Look through the list and locate and select `postgresql-server`.   +
+This view will show you all of the systems that have the `postgresql-server` package. +
+Again you can export this list if needed.
+
+== Repositories
+
+The repositories view will show you all enabled 3rd party (non Red Hat) repositories in your environment.
+
+Go to: `Content → Repositories`
+
+NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
+
+Under your repositories you can see all of the current repositories.  You can click the number in the Packages column to see a list of all of the packages in the repository and search for a specific package in that repo.  
+
+Your lab user doesn’t have the capability to add or remove third party repositories. +
+These repositories can be used when building new systems in `Inventory → Images` using the Image Builder service.
+
+If you click the `Popular repositories` tab, Red Hat includes some popular repositories in the list - primarily EPEL 7, 8, and 9.   +
+Again, due to restrictions on your user you cannot add selected repositories to the list of `Your repositories`.
+
+== Patch
+
+The Patch service has two parts - systems and templates.
+
+Templates allow you to control the scope of package and advisory updates to be installed on selected systems. +
+There will be some changes to Templates in the near future, so while you should feel free to take a look, please don’t make any changes at this time.  
+
+Go to: `Systems - Content → Patch → Systems`
+
+NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
+
+The summary bar at the top of the page tells you:
+
+* `Systems up to date`
+* `Systems with patches available`
+* `Stale systems`
+The default filters are showing you all systems registered with the patch service:
+
+* `Fresh` - Systems that have checked in within the last 7 days.
+* `Stale` - Systems that have not checked in with Insights in the last 7 days.
+
+NOTE: The systems list does not match the list of systems in the inventory - this is expected.  
+
+Locate and select your system in the list of systems (use of the filters is recommended). +
+Reminder: your system name is: {bastion_hostname}
+
+There are two tabs - `Advisories` and `Packages`.  Start with `Advisories`.
+
+Take note of the `Status` column.  You may see `Installable` (meaning that the patch is available to install) or `Applicable` (meaning that the patch is applicable to the system, but it is not available to install due to content access settings such as a Satellite content view or an Insights patch template).
+
+Also note the `Type` column.  Advisories can be:
+
+* `RHSA` (Security Advisory)
+* `RHBA` (Bugfix Advisory)
+* `RHEA` (Enhancement Advisory)
+* `Other`
+
+If desired you can adjust the filters to narrow down the list to best meet your needs.  
+
+You can optionally export a list of Advisories that affect this system in CSV or JSON.
+
+Click the `Packages` tab. +
+The default filter shows you packages that are installable.   +
+If you need to see all of the packages on this system then you can clear the filter. +
+You can optionally export a list of Packages that are installed on this system in CSV or JSON.
+
+=== Generating a remediation playbook
+
+If you want to take this a step further, you can also go ahead and create a remediation plan to upgrade packages or Advisories.   +
+You can select specific packages on your host, or, just click the checkbox at the top of the page (to the left of the System filter) then choose select all.  
+
+Once you have packages selected, click the `Remediate` button which will launch a wizard that will create a playbook for you.
+
+You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to `Create new` playbook.   Give your playbook a name like: `update packages <yourhostname>` +
+Reminder: your system name is: {bastion_hostname}
+
+NOTE: Please add some sort of unique identifier to the playbook name.  Above we suggest using your host’s unique hostname even though we are selecting multiple hosts..  
+
+Click `Next`. +
+At this time you are fixing this issue on all affected systems.  Click `Next`. +
+Review the summary.  Notice that a reboot may be required to update the selected packages. +
+You can turn off the auto reboot if desired  
+Click `Submit`.
+
+At the bottom of the wizard there is a link that will allow you to `Open playbook <name>`.   +
+Click the link.  This will redirect you to the Remediations section of the Hybrid Cloud Console. +
+For context, in the left hand navigation bar you have just been redirected to `Automation Toolkit → Remediations`.
+
+For the remediations page, while looking at your remediation you created, you have a couple of options in the upper right.  +
+The Execute playbook button is unavailable.   +
+Hover your mouse over the greyed out button and you should see a message explaining why.
+
+Your user in this lab does not have permission to execute remediation.   +
+No user in the Hybrid Cloud Console gets this permission by default - even organization administrators.   +
+it has to be explicitly provided.  +
+With so many people potentially taking this lab at the same time we have opted to not enable this feature.   +
+Your facilitator can demonstrate how this feature works.
+
+However you are able to use the `Download playbook` button.   Go ahead and click this now.  +
+The playbook is downloaded via your browser.  You will need to extract the file then open the .yaml  +
+As you look through the file you will note several signatures in the file.  These signatures are generated in the event that you choose to remediate through Insights - it prevents any manipulation of the file.
+
+This playbook can help simplify the resolution of this issue - you could easily adapt this to run via ansible automation or sync this playbook with Ansible Automation Platform (AAP) - this is covered in the AAP documentation but we are not covering it in this lab.
+
+When you are done looking at the playbook, close it and return to the Hybrid Cloud Console.
+
+This module is complete.
