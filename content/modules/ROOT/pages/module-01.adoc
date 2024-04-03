@@ -58,13 +58,13 @@ Log into the Hybrid Cloud Console with the following credentials:
 
 
 User:
-[source,user]
+[source,sh,role=execute]
 ----
 lab-434C
 ----
 
 Password:
-[source,password]
+[source,sh,role=execute]
 ----
 R3dh4t2021!
 ----
@@ -85,25 +85,30 @@ This view shows you all of the RHEL hosts that the Hybrid Cloud Console knows ab
 
 In addition to Insights, subscription-manager (subman) and Red Hat Satellite also report systems to this inventory to give you a more complete view of your total RHEL estate.
 
-In the list of systems locate your host.  It should be near the top of the page since it was recently connected, but you can also use the “Filter by name” to easily find your system.  Click on the system name to view details about your system.
+In the list of systems locate your host. +
+Reminder: your system name is: {bastion_hostname}
+
+It should be near the top of the page since it was recently connected, but you can also use the “Filter by name” to easily find your system.  Click on the system name to view details about your system.
 
 The inventory view of your specific system will give you an idea of the type of information that Insights uses for its analysis.  
 
 Based on the information that is collected, Insights has analyzed the system and within the inventory view you can see select findings on the Advisor, Vulnerability, Compliance, Patch, and Resource Optimization tabs.   Not all of these tabs will initially have data - this is expected as some services like Compliance and Resource Optimization require additional configuration.  +
 We will spend more time on some of these in subsequent exercises.
 
+NOTE: We will not cover every service in Insights during this lab as there is a lot to cover and limited time.  If you have any questions about specific services, please ask your lab facilitators.
+
 === Data Collection and Security information
 
 Let’s end this activity with a brief discussion on data collection and security information +
 It should be reiterated that you have complete control over what information Insights for RHEL gathers - while we have exposed the hostname and IP addresses of the systems in the lab, this information is easily obfuscated via a switch in the client.   Additional information can also be obfuscated including keywords, patterns, and specific files.
 
-Information about data collection can be found on the Red Hat Insights data and application security page https://www.redhat.com/en/technologies/management/insights/data-application-security[https://www.redhat.com/en/technologies/management/insights/data-application-security]
+Information about data collection can be found on the https://www.redhat.com/en/technologies/management/insights/data-application-security[Red Hat Insights data and application security page].
 
 This page also will tell you how to do things like obfuscate data or perform a collection for inspection to see everything that Insights collects.
 
 It is also important to mention that in our lab we directly connected a system to Insights.  Port 443 is all that needed to be open.   A web proxy is supported.
 If you use Satellite, the connection is automatically proxied through capsules (if used) to the Satellite, then onto Insights.
 
-Additional information can be found in the frequently asked questions document at http://redhat.com/insightsfaq[http://redhat.com/insightsfaq] 
+Additional information can be found in the http://redhat.com/insightsfaq[frequently asked questions document].
 
 This module is complete.
