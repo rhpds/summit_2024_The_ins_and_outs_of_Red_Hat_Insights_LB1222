@@ -76,7 +76,12 @@ Status options are:
 You can also add a justification note to indicate any details about the status that you select. +
 Click `Cancel` so that you make no changes at this time.
 
-If you click the export button image::Insights_Export_Button.png[ExportButton,85%,85%] (just to the right of the Remediate button) you have the option to export this list into CSV or JSON formats.  The export view is WYSIWYG (what you see is what you get), so an export on the `Conventional (RPM-DNF)` tab will show you only the RPM/DNF based systems.
+Locate the export button (just to the right of the Remediate button).  If looks like this:
+
+image::Insights_Export_Button.png[ExportButton,85%,85%] 
+
+Click the export button which will give you the option to export this list into CSV or JSON formats. +
+The export view is WYSIWYG (what you see is what you get), so an export on the `Conventional (RPM-DNF)` tab will show you only the RPM/DNF based systems.
 
 In other words, getting a list of systems impacted by a vulnerability takes just seconds - search for the CVE then export the list of impacted systems.
 
