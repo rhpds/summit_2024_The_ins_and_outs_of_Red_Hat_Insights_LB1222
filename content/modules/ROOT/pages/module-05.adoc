@@ -1,1 +1,115 @@
+= Identifying drift
 
+== Overview
+
+In this module you will evaluate your system for drift from a known state using the Insights Drift service.
+
+The Drift service uses what we call baselines made up out of system facts to identify the expected state of a system.  You can then compare the current state of a system to the baseline to evaluate what has changed and what actions you might need to take to get a system into the expected state.
+
+NOTE: Make sure you complete this module after you complete the Advisor module.
+
+===Baselines
+
+A baseline can be very simple or can be very complex.  Baselines can be created from scratch (where you identify the specific facts you want to compare against), can be copied from an existing baseline then edited, or can be copied from an existing system and then edited.   +
+Your user in the lab does not have the permissions to create or edit baselines, but a baseline has already been created for you to use.
+
+To view baselines, return to the Hybrid Cloud Console. +
+On the left hand navigation bar go to Operations → Drift → Baselines
+
+Notice how some of the baselines have systems associated with them. +
+You can assign a system to a baseline and Insights can automatically notify you via a third party integration (for example: Splunk, ServiceNow, Microsoft Teams, etc) when an assigned system drifts off of the baselines.  
+
+Select the +BL- Ins and Outs of Insights+ baseline +
+Take a look at the system facts that are a part of this baseline.  This shows the basic information that is collected by Insights and used in the analysis.   
+ +
+This baseline was made from an lab system just like yours. Certain facts were removed like the FQDN (fully qualified domain name) and IP address information which we would expect to be different across systems.
+
+The `Add fact or category` button is not available since your user only has the Drift user role. +
+You can also export the list of system facts included in the baseline out to a CSV or JSON like you can throughout most of Insights.
+
+If you click the `Associated systems` tab you can see the systems that are assigned to this baseline. +
+If your user was a Drift administrator then you would also see a `Add associated system` button.  Again, since you only have the Drift user role this button is not displayed.
+
+NOTE:  You cannot add additional files or data to a baseline or to comparisons.  You can only compare the data that Insights is already collecting.
+
+== Comparing a system to a baseline
+
+Let’s compare your system to the baseline you just looked at. +
+On the left hand navigation bar go to Operations → Drift → Comparison +
+Click Add systems or baselines. +
+Locate your system in the list and select the checkbox to the left of it to select it. +
+Reminder: your system name is: {bastion_hostname}
+
+Click the Baselines tab at the top.   +
+Locate the `BL- Ins and Outs of Insights` baseline and select the checkbox to the left of it to select it. +
+Now click the Submit button.
+
+The drift service can show you three different states:
+
+* `Same` - The facts are the same (they match)
+* `Different` - The fact are different (they don’t match)
+* `Incomplete data` - Insights doesn’t have the necessary information.  
+
+The default filters are configured to show you all three states.
+
+image::Drift_defaultfilters.png[Drift_defaultfilters,85%,85%]
+
+To focus on what is different or missing, you can edit the filters.  
+Click the `x` next to `Same` to remove it.  
+Now you are only looking at `Different` or `Incomplete data`.
+
+In your comparison, most things should match since the baseline was created from one of the lab systems that you are using.
+
+image::Drift_comparison.png[Drift_comparison,85%,85%]
+
+As you can see, the only differences between the systems are fqdn, network interfaces, and the tuned_profile.
+
+In the Advisor exercise you set the tuned profile to work with the postgresql database and you can see that reflected here as it is a deviation from the baseline.
+
+To the right of the “Add to comparison” button you can click the export icon to export the comparison to csv or json for later use.
+
+== Comparing a system to a system
+
+Let’s compare your system to another system.   +
+Assuming you have the previous comparison already open, click the X to the right of the baseline to remove it from your view.
+
+NOTE: If you are following along you will have your filters set to `Different` and Incomplete data`.  Since there is only one system open you will no longer see any system facts displayed.  You can optionally click `Reset filters` and you will see all system facts.  Remember to remove `Same` for the steps below.
+
+Now click `Add to comparison` +
+Click `Systems` and add any system starting with `dur` and click `Submit`.
+
+NOTE: Make sure your system is still selected in the comparison
+
+The `dur` systems are very different from the lab systems you are using. +
+You can easily compare the differences between your system and this other system.   +
+If you are comparing a system created by someone else taking this lab the systems may be identical.
+
+To the right of the “Add to comparison” button you can click the export icon to export the comparison to csv or json for later use.
+
+== Comparing a system to historical data
+
+Insights can also compare a system to a historical version of a system.  This is limited to the last 7 versions of the system.  This is especially helpful for a situation where a system was working on Friday when you left for the weekend, but when you get into the office on Monday things aren’t working correctly. +
+This feature will let you compare, for example, what the system facts were on Monday to what the systems facts are currently.
+
+In a previous module you identified an issue on the postgresql database where the tuned profile wasn’t properly configured.  You resolved this issue which involved making a change on the system then checking in with Insights again.   +
+As a result you should have at least two check-ins for Insights on your system.
+
+Click the `x` next to the other system in the comparison so that only your system is displayed. +
+Reminder: your system name is: {bastion_hostname}
+
+Next to the check in date/time you will see an icon that looks like this: 
+
+image::Drift_HSP_Button.png[Drift_HSP_Button,85%,85%]
+
+Click the icon to see the historical profiles for your system.   +
+Select the oldest historical profile and click `Compare`.
+
+image::Drift_comparison.png[Drift_comparison,85%,85%]
+
+Along with the tuned profile change, you may also notice changes in running processes and other areas.
+
+To the right of the “Add to comparison” button you can click the export icon to export the comparison to csv or json for later use.
+
+These comparisons and the Drift service can be helpful in identifying system changes.  
+
+This module is complete.
