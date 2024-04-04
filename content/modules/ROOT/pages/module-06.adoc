@@ -1,4 +1,4 @@
-= Content
+= Content and Patching
 
 In this module you will look briefly at the content options offered in Insights.  These are primarily offered by the Patch service, but allow you to look at advisories, packages, and repositories as well as patching. +
 System patching is one of the most common use cases and there are several ways to patch a system.   +
@@ -36,10 +36,12 @@ In the systems section, all of the systems impacted by this advisory are listed.
 
 === Generating a remediation playbook
 
-If you want to take this a step further, you can also go ahead and create a remediation plan for this Advisory.   +
-You can select specific systems in the list of affected hosts, or, just click the checkbox at the top of the page (to the left of the System filter) then choose select all.  
+Go ahead and create a remediation plan for this Advisory.   +
+You can select specific systems in the list of affected hosts, or, just click the checkbox at the top of the page (to the left of the System filter) then choose `Select all`.  
 
-Once you have hosts selected, click the remediate button which will launch a wizard that will create a playbook for you.
+NOTE: Not all of the hosts will select, even if you click "Select all".  This is becuase some of the host have a Template assigned which prevents the system from having access to unapproved content.  For example, Hosts associated with the 2023dec31 Tempate can't access content from 2024 and cannot install this particular advisory.
+
+Once you have hosts selected, click the `Remediate` button which will launch a wizard that will create a playbook for you.
 
 You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to `Create new` playbook.   Give your playbook a name like: `0256 fix <yourhostname>`
 
@@ -47,9 +49,9 @@ Reminder: your system name is: {bastion_hostname}
 
 NOTE: Please add some sort of unique identifier to the playbook name.  Above we suggest using your host’s unique hostname even though we are selecting multiple hosts.
 
-Click `Next’. +
+Click `Next`. +
 At this time you are fixing this issue on all affected systems.  Click `Next`. +
-Review the summary.  Notice that a reboot is not required to resolve this issue.  
+Review the summary.  Notice that a reboot is not required to resolve this issue. +  
 Click `Submit`.
 
 At the bottom of the wizard there is a link that will allow you to `Open playbook <name>`.   +
@@ -57,12 +59,12 @@ Click the link.  This will redirect you to the Remediations section of the Hybri
 For context, in the left hand navigation bar you have just been redirected to `Automation Toolkit → Remediations`.
 
 For the remediations page, while looking at your remediation you created, you have a couple of options in the upper right. +
-The Execute playbook button is unavailable.   +
+The `Execute playbook` button is unavailable.   +
 Hover your mouse over the greyed out button and you should see a message explaining why.
 
 Your user in this lab does not have permission to execute remediation.   +
 No user in the Hybrid Cloud Console gets this permission by default - even organization administrators.   +
-it has to be explicitly provided.  +
+It has to be explicitly provided.  +
 With so many people potentially taking this lab at the same time we have opted to not enable this feature.   +
 Your facilitator can demonstrate how this feature works.
 
@@ -95,11 +97,17 @@ The information on this screen can be exported to CSV or JSON and like in other 
 In the filter select patch status. In the drop down to the right select `Systems with patches available` +
 This returns you to the default view.
 
+Change the filter back to 'Package`
 In the filter next to `Package` type in `postgres`. +
 These results are returned regardless if `postgres` is in the package name or if they are in the summary description.   +
 Look through the list and locate and select `postgresql-server`.   +
 This view will show you all of the systems that have the `postgresql-server` package. +
 Again you can export this list if needed.
+
+If desired you can also create a playbook that would patch any upgradable systems by selecting the desired system or clicking the checkbox then `Select all`.  
+If you choose `Select all` only systems with a `Status` of `Upgradable` will be selected.
+
+If desired you can create a remediation playbook.  This is similar to the steps in the previous section, so explicit directions won't be provided.
 
 == Repositories
 
@@ -109,13 +117,13 @@ Go to: `Content → Repositories`
 
 NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
 
-Under your repositories you can see all of the current repositories.  You can click the number in the Packages column to see a list of all of the packages in the repository and search for a specific package in that repo.  
+In the `Your repositories` tab you can see all of the current repositories.  You can click the number in the Packages column to see a list of all of the packages in the repository (repo) and search for a specific package in that repo.  
 
 Your lab user doesn’t have the capability to add or remove third party repositories. +
 These repositories can be used when building new systems in `Inventory → Images` using the Image Builder service.
 
 If you click the `Popular repositories` tab, Red Hat includes some popular repositories in the list - primarily EPEL 7, 8, and 9.   +
-Again, due to restrictions on your user you cannot add selected repositories to the list of `Your repositories`.
+Again, due to restrictions on your user you cannot `Add selected repositories` to the list of `Your repositories`.
 
 == Patch
 
@@ -124,7 +132,7 @@ The Patch service has two parts - systems and templates.
 Templates allow you to control the scope of package and advisory updates to be installed on selected systems. +
 There will be some changes to Templates in the near future, so while you should feel free to take a look, please don’t make any changes at this time.  
 
-Go to: `Systems - Content → Patch → Systems`
+Go to: `Content → Patch → Systems`
 
 NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
 
@@ -133,6 +141,7 @@ The summary bar at the top of the page tells you:
 * `Systems up to date`
 * `Systems with patches available`
 * `Stale systems`
+
 The default filters are showing you all systems registered with the patch service:
 
 * `Fresh` - Systems that have checked in within the last 7 days.
@@ -166,7 +175,7 @@ You can optionally export a list of Packages that are installed on this system i
 === Generating a remediation playbook
 
 If you want to take this a step further, you can also go ahead and create a remediation plan to upgrade packages or Advisories.   +
-You can select specific packages on your host, or, just click the checkbox at the top of the page (to the left of the System filter) then choose select all.  
+You can select specific packages on your host, or, just click the checkbox at the top of the page (to the left of the Package filter) then choose `Select all`.  
 
 Once you have packages selected, click the `Remediate` button which will launch a wizard that will create a playbook for you.
 
@@ -176,9 +185,9 @@ Reminder: your system name is: {bastion_hostname}
 NOTE: Please add some sort of unique identifier to the playbook name.  Above we suggest using your host’s unique hostname even though we are selecting multiple hosts..  
 
 Click `Next`. +
-At this time you are fixing this issue on all affected systems.  Click `Next`. +
+At this time you are fixing this issue on your system.  Click `Next`. +
 Review the summary.  Notice that a reboot may be required to update the selected packages. +
-You can turn off the auto reboot if desired  
+You can turn off the auto reboot if desired. +  
 Click `Submit`.
 
 At the bottom of the wizard there is a link that will allow you to `Open playbook <name>`.   +
@@ -186,7 +195,7 @@ Click the link.  This will redirect you to the Remediations section of the Hybri
 For context, in the left hand navigation bar you have just been redirected to `Automation Toolkit → Remediations`.
 
 For the remediations page, while looking at your remediation you created, you have a couple of options in the upper right.  +
-The Execute playbook button is unavailable.   +
+The `Execute playbook` button is unavailable.   +
 Hover your mouse over the greyed out button and you should see a message explaining why.
 
 Your user in this lab does not have permission to execute remediation.   +
@@ -195,7 +204,8 @@ it has to be explicitly provided.  +
 With so many people potentially taking this lab at the same time we have opted to not enable this feature.   +
 Your facilitator can demonstrate how this feature works.
 
-However you are able to use the `Download playbook` button.   Go ahead and click this now.  +
+However you are able to use the `Download playbook` button. +
+Go ahead and click this now.  +
 The playbook is downloaded via your browser.  You will need to extract the file then open the .yaml  +
 As you look through the file you will note several signatures in the file.  These signatures are generated in the event that you choose to remediate through Insights - it prevents any manipulation of the file.
 
