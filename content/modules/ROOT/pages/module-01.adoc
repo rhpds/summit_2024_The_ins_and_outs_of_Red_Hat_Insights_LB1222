@@ -32,16 +32,16 @@ In the output you should see something similar to:
 
 [source,textinfo]
 ----
-[user@myhost ~]$ sudo rhc connect -o 13959588 -a AK_Summit_Lab  +
-Connecting myhost.example.com to Red Hat. +
-This might take a few seconds. +
-● Connected to Red Hat Subscription Management +
-● Connected to Red Hat Insights +
-● Activated the Remote Host Configuration daemon +
-● Enabled console.redhat.com services: remote configuration, insights, compliance, remediations +
-Successfully connected to Red Hat! +
-Manage your connected systems: https://red.ht/connector +
-[user@myhost ~]$ 
+[lab-user@myhost ~]$ sudo rhc connect -o 13959588 -a AK_Summit_Lab 
+Connecting myhost.example.com to Red Hat.
+This might take a few seconds.
+● Connected to Red Hat Subscription Management
+● Connected to Red Hat Insights
+● Activated the Remote Host Configuration daemon
+● Enabled console.redhat.com services: remote configuration, insights, compliance, remediations
+Successfully connected to Red Hat!
+Manage your connected systems: https://red.ht/connector
+[lab-user@myhost ~]$ 
 ----
 
 
@@ -51,6 +51,7 @@ Your host is now connected to Red Hat and Insights.
 This system should now be visible in Insights. +
 Open up the Hybrid Cloud Console.
 
+NOTE: You will need to open a new browser window to access the Hybrid Cloud Console - It won't connect in a window like the terminal window does.  In the upper right of these instructions you should see a `Links` button.  You can select the Hybrid Cloud Console from the Links OR you can manually type in console.redhat.com
 
 === Accessing Insights
 
