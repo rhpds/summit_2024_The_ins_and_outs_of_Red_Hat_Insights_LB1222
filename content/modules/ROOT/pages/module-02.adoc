@@ -51,18 +51,18 @@ Located at the top of the Recommendations page, this summary bar shows you:
 Below this is the list of Recommendations as well as a tab for Pathways. +
 One thing to take note of is the default filters that are applied.
 
-image::Advisor_deafultfilters.png[Advisor_defaultfilters,85%,85%]
+image::Advisor_deafultfilters.png[Advisor_defaultfilters,100%,100%]
 
 The idea of these filters is that Insights focuses on showing you recommendations that are enabled (so we don’t show you disabled recommendations), and recommendations that impact the systems in your environment. Each filter listed is called a chip. +
 
-The default filters are:
+The default filters are: +
 * `Status: Enabled` - You are looking at Recommendations that are enabled (not diabled)
 * `Systems impacted: 1 or more` - There are actually two filter chips here - one for `1 or more Immutable (OSTree)` and `1 or more Conventional (RPM-DNF)`.  These show under the same area but can be added or removed independently.
 
 If you are looking for a specific recommendation, you can search for it using the filter `Name` and by typing in a name.  For example, with the Name filter selected, type `kernel`.  This will show you all recommendations related to the kernel.   +
 Again - we are only showing you recommendations that affect your systems.
 
-image::Advisor_kernelfilter.png[Advisor_kernelfilter,85%,85%]
+image::Advisor_kernelfilter.png[Advisor_kernelfilter,100%,100%]
 
 In the image above note that searching for `kernel` added a new filter chip.  All of the default filters remain.
 
@@ -72,7 +72,7 @@ This resets the filters back to the defaults.
 Now using the Name filter, search for `SAP`. +
 There aren’t any SAP systems in this environment, so there are no recommendations listed. +
 
-image::Advisor_no_sap_recco.png[Advisor_no_sap_recco,85%,85%]
+image::Advisor_no_sap_recco.png[Advisor_no_sap_recco,100%,100%]
 
 If you are considering registering your SAP systems to Insights, maybe you want to see what recommendations we might have for SAP.   To see this, what you need to do is remove the `Systems impacted` filters.  Remove these by clicking the `x` next to each of the filters.  (leave the `Status: Enabled` filter for now.) +
 
@@ -80,7 +80,7 @@ NOTE:  Remove both `Systems impacted` filters - Immutable and Conventional.
 
 Now you will see all of the recommendations for SAP, even though you do not have any systems impacted.
 
-image::Advisor_all_sap_recco.png[Advisor_all_sap_recco,85%,85%]
+image::Advisor_all_sap_recco.png[Advisor_all_sap_recco,100%,100%]
 
 If you also remove the `sap` filter, you will see all enabled recommendations within the Advisor service. +
 You can also remove the `Status: Enabled` filter which will show you all of the recommendations regardless of status.  There should be no filter chips showing (~1700+ recommendations shown).
@@ -93,7 +93,7 @@ When finished - click `Reset filters`.  This will return you to the default view
 
 == Topics
 
-In addition to using the filters, the Advisor service has a curated list of common workloads that Insights refers to as Topics.
+In addition to using the filters, the Advisor service has a curated list of common workloads that Insights refers to as `Topics`.
 On the left hand navigation bar, click Operations to expand it, then click Advisor, then click Topics.  
 From this point forward this will be shown as: `Operations --> Advisor --> Topics`
 
@@ -109,15 +109,16 @@ Remove the `Systems impacted` filter(s) and you should see all of the SAP recomm
 NOTE: A bug was observed during testing where the `Systems impacted` filters were not showing.  If you do not see these filters, tap `Reset filters` and they should show up.
 
 Return to the Topics page
-On the left hand navigation bar go to Operations --> Advisor --> Topics
+On the left hand navigation bar go to `Operations --> Advisor --> Topics`
 
 Find the `PostgreSQL` topic.
 Notice that several systems are reporting a recommendation for this topic.
 Select the `PostgreSQL` topic.
-You will see a topic `The postgresql database performance decreases when the tuned best practices are not applied`
+You will see a topic: +
+`The postgresql database performance decreases when the tuned best practices are not applied` +
 Click the arrow to the left of the topic to expand out the details.
 
-image::Advisor_Postgrestopic.png[Advisor_Postgrestopic,85%,85%]
+image::Advisor_Postgrestopic.png[Advisor_Postgrestopic,100%,100%]
 
 NOTE: The number of affected systems that you see will vary from what is shown in the screenshot above.  That is expected.
 
@@ -129,7 +130,7 @@ Specifics of how to fix are not shown in this view as there may be differences o
 == Recommendations on your system
 
 Let’s look at your RHEL system. +
-On the left hand navigation bar, click Operations --> Advisor --> Systems
+On the left hand navigation bar, click `Operations --> Advisor --> Systems`
 
 NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
 
@@ -138,7 +139,7 @@ Reminder: your system name is: {bastion_hostname}
 
 This will show you the list of recommendations that are present on this system.
 
-You should see a recommendation for postgresql listed:
+You should see a recommendation for postgresql listed: +
 `The postgresql database performance decreases when the tuned best practices are not applied` +
 Click on the recommendation to expand the details. +
 This will show you:
@@ -156,30 +157,30 @@ Not every recommendation or issue that Insights finds has a playbook, but most d
 === Generating a remediation playbook
 
 To generate the playbook, select the checkbox next to the recommendation. +
-Once the checkbox is selected, the Remediate button becomes available.
+Once the checkbox is selected, the `Remediate` button becomes available.
 
 
 If you click the remediate button it will launch a wizard that will create a playbook for you. +
-Click remediate.
+Click `Remediate`.
 
-You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to Create new playbook.   Give your playbook a name like: `postgresql fix <yourhostname>`
+You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to Create new playbook.   Give your playbook a name like: `postgresql fix <yourhostname>` +
 Reminder: your system name is: {bastion_hostname}
 
 
-Note: please add some sort of unique identifier to the playbook name.  Above we suggest using your host’s unique hostname.  
+NOTE: Please add some sort of unique identifier to the playbook name.  Above we suggest using your host’s unique hostname.  
 
-Click next. +
+Click `Next`. +
 At this time you are fixing this issue on a single system.  It is possible to fix this on all impacted systems, but you will do that in a later exercise. +
-Click next. +
+Click `Next`. +
 Review the summary.  Notice that a reboot is not required to resolve this issue.   If a reboot was required you would have the option to disable the reboot in the playbook. +
-Click submit.
+Click `Submit`.
 
 At the bottom of the wizard there is a link that will allow you to `Open playbook <name>`.   +
 Click the link.  This will redirect you to the Remediations section of the Hybrid Cloud Console. +
 For context, in the left hand navigation bar you have just been redirected to `Automation Toolkit → Remediations`.
 
 For the remediations page, while looking at your remediation you created, you have a couple of options in the upper right. +
-The Execute playbook button is unavailable.  
+The `Execute playbook` button is unavailable.  
 Hover your mouse over the greyed out button and you should see a message explaining why.
 
 Your user in this lab does not have permission to execute remediation.  
@@ -199,7 +200,7 @@ Since you don’t have the permissions to execute through the remediations servi
 == Manual Remediation
 
 Using the left hand navigation bar go to: +
-Operations → Advisor → Systems +
+`Operations → Advisor → Systems` +
 Find and select your system. +
 Click on the Postgresql recommendation.
 
@@ -213,6 +214,7 @@ sudo yum install tuned-profiles-postgresql -y
 sudo tuned-adm profile postgresql
 sudo tuned-adm active
 sudo insights-client
+
 ----
 
 NOTE: The onscreen directions will also include a `tuned-adm verify` command.  Due to the lab setup this verification will fail and needs a reboot to succeed.  We don't want to reboot the lab system as it isn't necessary for the fix in this environment, but in a production environment it should be used.
