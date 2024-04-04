@@ -4,7 +4,7 @@
 
 In this module you will evaluate your system for the potential presence of Malware using the Insights Malware detection service.
 
-Red Hat has partnered with IBM X-Force Threat Intelligence to access their malware signature database.   +
+Red Hat has partnered with IBM X-Force Threat Intelligence to access their malware signatures.   +
 Insights uses YARA to evaluate the system for the presence of malware. +
 This requires additional setup above and beyond Insights registration.
 
@@ -33,7 +33,7 @@ Since Insights malware detection had never been run before on this system the ma
 You will need to edit the config file to make scans live. + 
 Edit the config file:
 
-[source,sh,role=editconfig]
+[source,sh,role=execute]
 ----
 sudo vi /etc/insights-client/malware-detection-config.yml
 ----
@@ -41,18 +41,19 @@ sudo vi /etc/insights-client/malware-detection-config.yml
 
 Inside the file you need to locate the section on test scan (this is near the top of the file). +
 Change: +
-`Test_scan: true` +
+`test_scan: true` +
 To: +
-`Test_scan: false`
+`test_scan: false`
 
 Save and exit the text editor.
 
- If you aren’t familiar with vi, go to the end of the line and press `i` to enter editing mode. +
- Delete “true” then type in “false” +
- Press the `esc` key to exit editing mode. +
+If you aren’t familiar with vi:
+ Go to the end of the line and press `i` to enter editing mode. 
+ Delete “true” then type in “false” 
+ Press the "esc" key to exit editing mode. 
  Type:
- `:wq`  +
- To write the file and quit the editor.
+ :wq
+This will write the file and quit the editor.
 
 The Malware detection service is now setup. +
 Since this is a new system, there is nothing to find - yet.
@@ -75,15 +76,18 @@ sudo curl https://secure.eicar.org/eicar.com -o /home/lab-user/eicar.com
 sudo curl https://secure.eicar.org/eicar.com.txt -o /home/lab-user/eicar.com.txt
 sudo curl https://secure.eicar.org/eicar_com.zip -o /home/lab-user/eicar_com.zip
 sudo curl https://secure.eicar.org/eicarcom2.zip -o /home/lab-user/eicar_com2.zip
+
 ----
 
-Run the 'll' command again. +
+Run the `ll` command again. +
 You should see the 4 eicar files in your directory.
 
-Each file contains the same test which simulates a malware signature: +
+Each file contains the same text which simulates a malware signature: +
 
 Lets run the malware detection scan on your system.  +
-Note this may take several minutes to complete.   +
+
+NOTE: This may take several minutes to complete. 
+
 [source,sh,role=execute]
 ----
 sudo insights-client --collector malware-detection
@@ -100,17 +104,17 @@ Matched rule XFTI_EICAR_AV_Test in file /home/lab-user/eicar_com.zip +
 Matched rule XFTI_EICAR_AV_Test in file /home/lab-user/eicar_com2.zip
 ----
 
-NOTE: Wait until the command is completely finished running and you are returned to the terminal prompt.
-
 That is yara finding the malware signature from eicar in each of the four files.
 Now you can see malware detected inside of Insights.
+
+NOTE: Wait until the command is completely finished running and you are returned to the terminal prompt before continuing.
 
 === Reviewing Malware Detection Results
 
 Return to the Hybrid Cloud Console. +
 On the left hand navigation bar go to `Security → Malware → Signatures`
 
-Here you should see a big red exclamation mark tell you that we have matched a malware signature. +
+Here you should see a big red exclamation mark telling you that we have matched a malware signature. +
 If there were no malware matches you would see a green checkmark.  Due to the shared environment with multiple people taking this lab it is unlikely you will see the green checkmark today.
 
 Looking next to the exclamation mark you will see the number of matched signatures as well as the number of enabled and disabled signatures.
