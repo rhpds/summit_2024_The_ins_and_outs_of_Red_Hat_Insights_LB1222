@@ -13,16 +13,16 @@ NOTE: Make sure you complete this module after you complete the Advisor module.
 A baseline can be very simple or can be very complex.  Baselines can be created from scratch (where you identify the specific facts you want to compare against), can be copied from an existing baseline then edited, or can be copied from an existing system and then edited.   +
 Your user in the lab does not have the permissions to create or edit baselines, but a baseline has already been created for you to use.
 
-To view baselines, return to the Hybrid Cloud Console. +
-On the left hand navigation bar go to Operations → Drift → Baselines
+To view baselines, go to the Hybrid Cloud Console. +
+On the left hand navigation bar go to `Operations → Drift → Baselines`
 
 Notice how some of the baselines have systems associated with them. +
 You can assign a system to a baseline and Insights can automatically notify you via a third party integration (for example: Splunk, ServiceNow, Microsoft Teams, etc) when an assigned system drifts off of the baselines.  
 
-Select the +BL- Ins and Outs of Insights+ baseline +
+Select the `BL- Ins and Outs of Insights` baseline +
 Take a look at the system facts that are a part of this baseline.  This shows the basic information that is collected by Insights and used in the analysis.   
  +
-This baseline was made from an lab system just like yours. Certain facts were removed like the FQDN (fully qualified domain name) and IP address information which we would expect to be different across systems.
+This baseline was made from a lab system just like yours. Certain facts were removed like the FQDN (fully qualified domain name) and IP address information which we would expect to be different across systems.
 
 The `Add fact or category` button is not available since your user only has the Drift user role. +
 You can also export the list of system facts included in the baseline out to a CSV or JSON like you can throughout most of Insights.
@@ -40,9 +40,9 @@ Click `Add systems or baselines`. +
 Locate your system in the list and select the checkbox to the left of it to select it. +
 Reminder: your system name is: {bastion_hostname}
 
-Click the Baselines tab at the top.   +
+Click the `Baselines` tab at the top.   +
 Locate the `BL- Ins and Outs of Insights` baseline and select the checkbox to the left of it to select it. +
-Now click the Submit button.
+Now click the `Submit` button.
 
 The drift service can show you three different states:
 
@@ -52,7 +52,7 @@ The drift service can show you three different states:
 
 The default filters are configured to show you all three states.
 
-image::Drift_defaultfilters.png[Drift_defaultfilters,85%,85%]
+image::Drift_defaultfilters.png[Drift_defaultfilters,100%,100%]
 
 To focus on what is different or missing, you can edit the filters.  
 Click the `x` next to `Same` to remove it.  
@@ -60,13 +60,13 @@ Now you are only looking at `Different` or `Incomplete data`.
 
 In your comparison, most things should match since the baseline was created from one of the lab systems that you are using.
 
-image::Drift_comparison.png[Drift_comparison,85%,85%]
+image::Drift_comparison.png[Drift_comparison,100%,100%]
 
 As you can see, the only differences between the systems are fqdn, network interfaces, and the tuned_profile.
 
 In the Advisor exercise you set the tuned profile to work with the postgresql database and you can see that reflected here as it is a deviation from the baseline.
 
-To the right of the `Add to comparison` button you can click the export icon to export the comparison to csv or json for later use.
+To the right of the `Add to comparison` button you can click the export button to export the comparison to csv or json for later use.
 
 == Comparing a system to a system
 
