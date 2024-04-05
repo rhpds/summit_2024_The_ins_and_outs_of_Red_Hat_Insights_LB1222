@@ -1,6 +1,6 @@
-= Registration and Initial use
+= Registration, Inventory, and Images
 
-=== Overview
+== Overview
 
 In this lab we have already provided for you a Red Hat Enterprise Linux (RHEL) 8 host. +
 Your RHEL host will be the primary focus of this lab, and you will be using a user account that has access to all of the services of Insights, however to provide the best experience for all users there are some actions you will not be able to do in the lab 
@@ -10,7 +10,7 @@ Insights uses the insights-client on each RHEL host to report system facts to In
 The insights-client is typically part of the base RHEL image, but you will need to register the host to Insights through a registration command. +
 We will start by connecting this host to Insights.
 
-=== Connecting to Insights
+== Connecting to Insights
 
 There are a couple of different ways to connect to Insights.  In this lab we will use a manual command, but you can also register from a Red Hat Satellite Server if your host is connected to a Satellite or you can leverage an ansible playbook.  If you connect your cloud provider to the Hybrid Cloud Console (console.redhat.com) then systems in the cloud can be automatically registered to Red Hat and Insights.
 
@@ -53,7 +53,7 @@ Open up the Hybrid Cloud Console.
 
 NOTE: You will need to open a new browser window to access the Hybrid Cloud Console - It won't connect in a window like the terminal window does.  In the upper right of these instructions you should see a `Links` button.  You can select the Hybrid Cloud Console from the Links OR you can manually type in console.redhat.com
 
-=== Accessing Insights Inventory
+== Accessing Insights
 
 Log into the Hybrid Cloud Console with the following credentials: 
 
@@ -73,6 +73,96 @@ R3dh4t2021!
 
 This is the main page of the Hybrid Cloud Console.   
 There are several offerings available on the Hybrid Cloud Console including Red Hat Insights which is included with subscriptions for Red Hat Enterprise Linux, Red Hat OpenShift, and Red Hat Ansible Automation Platform.
+
+You are going to go through a series of exercises for the rest of this lab that take you through some of the services in the Hybrid Cloud Console.
+You will not have an exercise for every service nor will your user have access to every function and feature.  
+While this may be disappointing at times, permissions were granted to your user to provide the best overall experience for all of the users taking this lab at the same time.
+
+== Creating an image
+
+NOTE: While your system is now connected to Insights, you are creating an image first as the image creation process takes several minutes once it is initiated.  Starting with this activity gives it time to complete before the end of the module.
+
+In this lab environment we provided you a system.   The system was already created with the packages you need to complete these lab exercises.
+Insights is also capable of creating system images inside of Insights.
+You can also launch these images directly into a public cloud - AWS, Azure, GCP, or OCI.
+
+Images can be created in a variety of formats including .ova, .qcow2, and .iso.
+This is all based on RHEL's image builder capabilities. 
+
+At the top of the page you will see a search bar. +  
+Type `image`. +
+Click the result `Images | Red Hat Insights` +
+
+This will take you to the Images page inside of Insights.
+
+You have image creation options for `Conventional (RPM-DNF)` as well as `Immutable (OSTree)` via the tabs at the top.
+The default is `Conventional (RPM-DNF)` which is where you will focus in this activity.
+
+Click the `Create image` button.
+This starts a wizard that helps you create a custom image.
+
+. `Image Output`
+.. In the image output start by selecting a release version.  It defaults to the latest version. +
+In the dropdown list for `Release` select `Red Hat Enterprise Linux (RHEL) 8`. +
+Since you have selected an older version, the release lifecycle information is displayed so that you know where this older release is in the lifecycle. +
+.. Leave the architecture as `x86_64`.  `aarch64` is also an option with this release.
+.. Select `target environments`.  This is plural as you can select multiple options here.+
+.. Select `Amazon Web Services`.  You may notice that in the list of steps on the left you get a new `Target environment` step added as a result of this selection.
+.. Click `Next`
+. `Target environment - Amazon Web Services`
+.. In the Hybrid Cloud Console you have the ability to configure `Sources`.  One of the sources already added is Amazon Web Services (AWS).  In the Source the AWS information is already listed and communication with AWS has been established.  This enables you to create images and register them with AWS very quickly and easily.  It also enables you to launch images if you had sufficient permissions.
+.. Under `Share method` the default is `Use an account configured from Sources`.  This would use entries from the Sources in the Hybrid Cloud Console.  
+.. Under `Source Name` select `RH_AWS`.  Notice that this auto populates the default region and the account ID.
+.. Click `Next`
+. `Register`
+.. This wizard makes it simple and easy for images created by Insights to connect to both Red Hat (subscription-manager) and Insights specifically.  It is suggested to use the `Automatically register and enable advanced capabilities` option - this is the default selection.
+.. Registration is handled through activation keys.  This keeps you from transmitting username and password information and also lets you set system purpose information based on the activation keys in use.  Activation keys can be created and managed inside of the Hybrid Cloud Console - If you have the appropriate access.  In order to make sure that the lab is usable for all, access to Activation keys has been removed for your user.
+.. Select `Register later`.
+.. Click `Next`
+. `File system configuration`
+.. You can use automatic partitioning or you can manually configure the partitions.  
+.. Click `Manually configure partitions`.  This opens up a new table where you can add additional partitions.
+.. Click `Add partition`
+.. Set `/home` to '5 GiB`.
+.. Click `Add partition`
+.. Click the `/home` dropdown and select `/tmp`
+.. Set `/tmp` to `2 GiB`
+.. Your system will now be created with a 10GB root, a 5 GB home, and a 2GB tmp partition.
+.. Click `Next`
+. `Content`
+.. In this section you can add packages to your image.  
+.. Under `Available packages` in the `Search for a package` area type `postgres` and hit enter.
+.. Scroll down the list and find `postgresql-server` and click it.
+.. In the center area between the two boxes, you will see some arrows.  `>`, and `>>`,
+.. Click `>`.  This will list the `postgresql-server` package in the right box, meaning it is a `Chosen package`.
+.. Under `Available packages` in the `Search for a package` area type `openscap` and hit enter.
+.. Scroll down the list and find `openscap` and click it.
+.. Click `>` to make it a chosen package.
+.. The `Chosen packages` list now contains `postgresql-server` and `openscap`.
+.. Repeat with any additional desired packages.
+.. Click `Next`
+.. You can also optionally select any `Custom repositories`.  These custom repositories are managed in the `Content` section and will be covered later.
+.. Click `Next`
+. `Details`
+.. Name your image.  Under `Image Name` enter a name such as `rhel8-postgres-<yoursystemname>`
+Reminder: your system name is: {bastion_hostname}
+
+NOTE: Read the text under `Image Name`.  The image name can be 3-63 characters long. It can contain lowercase letters, digits and hyphens, has to start with a letter and cannot end with a hyphen.
+
+NOTE: Please add some sort of unique identifier to the image name.  Above we suggest using your host’s unique hostname.  
+
+.. Add a description of the image if desired.
+.. Click `Next`
+. `Review`
+.. In the `Review` section you can expand the different areas and review the selections that you have made.
+.. Click `Create image`
+
+The image build process has started.  
+We will return to this section prior to completing this module to allow time for the image to be created.
+
+NOTE: The image creation process will take several minutes (around 10-15 average based on the above selections).
+
+
 
 At this point you want to see the system that you just connected to Insights. +
 In order to do this, you need to go to the RHEL inventory.  
@@ -124,7 +214,7 @@ Once grouped you can then apply role based access controls to the group.
 For example, we could have created a group for systems created in this lab, then only given your user access to the systems in that group - you would never see any other systems.
 For example, you may want the web development team to only access their servers and no others.  This can be achieved today through inventory groups.  The current implementation has some gaps, so expect to see enhancements in this area in the near future.
 
-Your user can select a group but cannot add new groups or add systems to groups.  You also don't have the ability to apply access control on groups.  As a result the `Create group` button is not avialable to you.
+Your user can select a group but cannot add new groups or add systems to groups.  You also don't have the ability to apply access control on groups.  As a result the `Create group` button is not available to you.
 
 Click `RAL`.  This is a group that has 7 hosts.
 At the top are two tabs - `Systems` and `Group info`.
@@ -135,150 +225,56 @@ Click the `Group info` tab.
 This section would redirect you to the role based access control area of the Hybrid Cloud Console.
 Again, your user only has read permissions here, so the `Manage access` button is not available to you.
 
-=== Images
-Insights is also capable of creating system images inside of Insights.
-You can also lauch these images directly into a public cloud - AWS, Azure, GCP, or OCI.
 
-Images can be created in a variety of formats including .ova, .qcow2, and .iso.
-This is all based of off RHEL's image builder capabilities. 
+=== System Configuration section
+This guide will briefly cover the items in the System Configuration section. 
 
-
-Click: `Inventory --> Images`
-
-NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
-
-You have image creation options for `Conventional (RPM-DNF)` as well as `Immutable (OSTree)` via the tabs at the top.
-The default is `Conventional (RPM-DNF)` which is where you will focus in this activity.
-
-Click the `Create image` button.
-This starts a wizard that helps you create a custom image.
-
-. `Image Output`
-.. In the image output start by selecting a release version.  It defaults to the latest version. +
-In the dropdown list for `Release` select `Red Hat Enterprise Linux (RHEL) 8`. +
-Since you have selected an older version, the release lifecycle information is displayed so that you know where this older release is in the lifecycle. +
-.. Leave the archtecture as `x86_64`.  `aarch64` is also an option with this release.
-.. Select `target environments`.  This is plural as you can select multiple options here.+
-.. Select `Amazon Web Services`.  You may notice that in the list of steps on the left you get a new `Target environment` step added as a result of this selection.
-.. Click `Next`
-. `Target environment - Amazon Web Services`
-.. In the Hybrid Cloud Console you have the ability to configure `Sources`.  One of the sources already added is Amazon Web Services (AWS).  In the Source the AWS information is already listed and communication with AWS has been established.  This enables you to create images and register them with AWS very quickly and easily.  It also enables you to launch images if you had sufficient permissions.
-.. Under `Share method` the default is `Use an account configured from Sources`.  This would use entries from the Sources in the Hybrid Cloud Console.  
-.. Under `Source Name` select `RH_AWS`.  Notice that this auto populates the default region and the account ID.
-.. Click `Next`
-. `Register`
-.. This wizard makes it simple and easy for images created by Insights to connect to both Red Hat (subscription-manager) and Insights specifically.  It is suggested to use the `Automatically register and enable advanced capabilities` option - this is the default selection.
-.. Registration is handled through activation keys.  This keeps you from transmitting username and password information and also lets you set system purpose information based on the activation keys in use.  Activation keys can be created and managed inside of the Hybrid Cloud Console - you will look at those more in a few minutes.
-.. Under `Activation key to use for this image` select `AK_Summit_Lab` from the dropdown.
-.. Notice that under the activation key you can now see the Role, SLA, and Usage defined in the activation key.
-.. Click `Next`
-. `File system configuration`
-.. You can use automatic partitioning or you can manually configure the partitions.  
-.. Click `Manually configure partitions`.  This opens up a new table where you can add additional partitions.
-.. Click `Add partition`
-.. Set `/home` to '5 GiB`.
-.. Click `Add partition`
-.. Click the `/home` dropdown and select `/tmp`
-.. Set `/tmp` to `2 GiB`
-.. Your system will now be created with a 10GB root, a 5 GB home, and a 2GB tmp partition.
-.. Click `Next`
-. `Content`
-.. In this section you can add packages to your image.  
-.. Under `Available packages` in the `Search for a package` area type `postgres` and hit enter.
-.. Scroll down the list and find `postgresql-server` and click it.
-.. In the center area between the two boxes, you will see some arrows.  `>`, and `>>`,
-.. Click `>`.  This will list the `postgresql-server` package in the right box, meaning it is a `Chosen package`.
-.. Under `Available packages` in the `Search for a package` area type `openscap` and hit enter.
-.. Scroll down the list and find `openscap` and click it.
-.. Click `>` to make it a chosen package.
-.. The `Chosen packages` list now contains `postgresql-server` and `openscap`.
-.. Repeat with any additional desired packages.
-.. Click `Next`
-.. You can also optionaly select any `Custom repositories`.  These custom repositories are managed in the `Content` section and will be covered later.
-.. Click `Next`
-. `Details`
-.. Name your image.  Under `Image Name` enter a name such as `rhel8-postgres-<yoursystemname>`
-Reminder: your system name is: {bastion_hostname}
-
-NOTE: Read the text under `Image Name`.  The image name can be 3-63 characters long. It can contain lowercase letters, digits and hyphens, has to start with a letter and cannot end with a hyphen.
-
-NOTE: Please add some sort of unique identifier to the image name.  Above we suggest using your host’s unique hostname.  
-
-.. Add a description of the image if desired.
-.. Click `Next`
-. `Review`
-.. In the `Review` section you can expand the different areas and review the selections that you have made.
-.. Click `Create image`
-
-The image build process has started.  
-We will return to this section prior to completing this module to allow time for the image to be created.
-
-NOTE: The image creation process will take several minutes (around 10-15 average based on the above selections).
-
-
-=== Remote Host Configuration (RHC)
+==== Remote Host Configuration (RHC)
 Remote host configuration (rhc) allows you to register with Red Hat Subscription Management (RHSM), connect to Red Hat Insights, and manage your Insights connections with one command.
-
-rhc can enable remediation of Insights issues directly from the Hybrid Cloud Console.
-
-Remote host configuration connects RHEL 7.9+ and 8.4+ systems as well as RHEL 9 systems.
-
-You used the `rhc connect` command earlier when you connected your system to Insights.
-
-As a reminder the outpur from that command was similar to:
-
-[source,textinfo]
-----
-[lab-user@myhost ~]$ sudo rhc connect -o 13959588 -a AK_Summit_Lab 
-Connecting myhost.example.com to Red Hat.
-This might take a few seconds.
-● Connected to Red Hat Subscription Management
-● Connected to Red Hat Insights
-● Activated the Remote Host Configuration daemon
-● Enabled console.redhat.com services: remote configuration, insights, compliance, remediations
-Successfully connected to Red Hat!
-Manage your connected systems: https://red.ht/connector
-[lab-user@myhost ~]$ 
-----
-
-In that output it is these section that is pertinent to the RHC section of the Hybrid Cloud Console:
-
-[source,textinfo]
-----
-● Activated the Remote Host Configuration daemon
-● Enabled console.redhat.com services: remote configuration, insights, compliance, remediations
-----
 
 RHC enables some additional capabilities for Insights for directly connected hosts as well as for hosts connected via Red Hat Satellite.
 
 These additional capabilities can be controlled from this page with the proper permissions.
-Your user only has the viewer roles and cannot make changes in this area, but it is important for you to be aware of these capabilities.
+You don't have access to Activation keys in this lab and will not be able to access this section.
 
-* `Allow Insights users to use “Remediations” to send Ansible Playbooks to fix issues on your systems'
-With RHC configured AND with appropriate role based access controls it is possible to let users create playbooks and run those playbooks on systems to fix the things that Insights finds.
-Just being connected via RHC or Satellite isn't enough.
-Having the `Remediations` option enabled in the `RHC` page isn't enough.
-The user must also be explicitly provided the `Remedaitions Administrator` role inside of the Hybrid Cloud Console in order to execute playbooks, even if you are connected via RHC and this option is enabled.
-However - if you want to disable the capabillity for all of Insights you can do it here.
+==== Activation Keys
+Activation keys assist you in registering systems and prevent you from having to type in a username and password.
+Metadata such as role, system purpose, and usage can be automatically attached to systems via an activation key, and monitored with the Subscription service in Insights.
 
-* `Allow remote host configuration to manage the configuration of Red Hat services`
-Some services inside of Insights require additional configuration to operate.  
-The best example of this is the Compliance service which helps you to evaluate systems for regulatory compliance such a PCI, HIPAA, DISA-STIG, etc.  
-The compliance service also needs OpenSCAP components to perform the evaluation.
+You don't have access to Activation keys in this lab and will not be able to access this section.
 
-Through RHC Insights has the capability to run playbooks on a system to handle this setup and configuration for you.  
-Currently only the Compliance service has this capability, but in the future we could add this to other services that might beed additional configuration.
-Again, if you want to disbale this capability you are able to do so with the proper permissions.
+==== Staleness and Deletion
+Staleness and deletion is a new feature just released in April 2024. 
 
-Links to the playbooks used are avialable here so that you can have the opportunity to see and evalaute them.
+Click: `Inventory --> System Configuration --> Staleness and Deletion`
+Historically Insights for RHEL has had these rules:
 
-=== Activation Keys
+For `Conventional (RPM-DNF)` based systems:
+* A system is stale after 1 day (24 hours) without sending data
+* A system gets a stale warning after 7 days of not sending data.  This warning means the system is at risk from being removed from the inventory.
+* A system is deleted after 14 days of sending no data.  If you want to add this system back into the inventory it will need to be re-registered with Insights.
 
+For `Immutable (OSTree)` based systems:
+* A system is state after 2 days without sending data
+* A system gets a stale warning after 180 days without sending data
+* A system is deleted after 2 years of sending no data.  If you want to add this system back into the inventory it will need to be re-registered with Insights.
+
+The `Staleness and Deletion` section allows you to edit these defaults to better meet your needs.
+
+NOTE: Your user has a viewer role only and cannot change the current settings.
+
+The `Edit` button is not available for your user.
+However, if it was you would be able to change the settings of each of these value to better meet your needs.
+Perhaps you have systems that get turned off for extended periods of time and you want to extend system deletion from 14 days to 60 days.  
+
+Here is an example of what this might look like:
+
+image::CustomStalenessDeletion.png[CustomStalenessDeletion,100%,100%]
 
 
 === Data Collection and Security information
 
-Let’s end this activity with a brief discussion on data collection and security information +
+One of the most common questions about Insights has to do with the data collected, so the Insights team wanted to include a brief discussion on data collection and security information +
 It should be reiterated that you have complete control over what information Insights for RHEL gathers - while we have exposed the hostname and IP addresses of the systems in the lab, this information is easily obfuscated via a switch in the client.   Additional information can also be obfuscated including keywords, patterns, and specific files.
 
 Information about data collection can be found on the https://www.redhat.com/en/technologies/management/insights/data-application-security[Red Hat Insights data and application security page].
@@ -289,5 +285,29 @@ It is also important to mention that in our lab we directly connected a system t
 If you use Satellite, the connection is automatically proxied through capsules (if used) to the Satellite, then onto Insights.
 
 Additional information can be found in the http://redhat.com/insightsfaq[frequently asked questions document].
+
+== Checking on your image
+Hopefully by this point enough time has lapsed that your image has completed building.
+As mentioned earlier this typically takes 10-15 minutes with the selections identified in the lab exercise, but the additional load on the system may cause this to take a little longer.
+
+Return to the Images area.
+Click: `Inventory --> Images`
+
+In the table at the bottom of the page locate your image.
+Under the `Status` column you should see `Ready`
+
+NOTE: If the system isn't ready feel free to come back at a later time.  
+
+In the `Instance` column you should notice the word Launch.
+
+NOTE:  Your user can open the wizard to see the `Launch` options, but it does not have the permissions necessary to actually launch the image into the cloud provider.
+
+Click `Launch`
+
+In the `Launch` wizard you can select the accout, the region, the instance type (this is a nice type-ahead box - typing `t3` will show you all of the t3 instance types for example), any templates that you have created on the cloud provider, and the number of instances you want to launch.
+
+The next step will allow you to select or upload an ssh key for use to connect to the system. 
+While you cannot complete launching an image in this lab, we do have videos of this available that you can watch later or your lab facilitator can show this functionality.
+
 
 This module is complete.
