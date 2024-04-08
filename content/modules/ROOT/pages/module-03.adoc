@@ -146,7 +146,7 @@ This means we are showing you all CVEs that have an advisory available (in other
 Because we are showing you only CVEs with advisories, in the remediation column on the far right, almost every CVE has the option for a remediation playbook - meaning Insights can generate a playbook for almost all of these CVEs.
 
 If you just need the list of CVEs that you can fix - exporting this list will get you what you need. +
-However, sometimes you need a complete list of system vulnerablities - the CVEs with and without errata. + 
+However, sometimes you need a complete list of system vulnerabilities - the CVEs with and without errata. + 
 Insights can show you this information as well.
 
 Take note of the number of CVEs listed for the host.  These are shown in the upper right side of the list of CVEs. +
