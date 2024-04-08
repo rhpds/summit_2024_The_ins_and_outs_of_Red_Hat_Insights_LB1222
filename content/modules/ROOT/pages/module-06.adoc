@@ -39,7 +39,7 @@ In the systems section, all of the systems impacted by this advisory are listed.
 Go ahead and create a remediation plan for this Advisory.   +
 You can select specific systems in the list of affected hosts, or, just click the checkbox at the top of the page (to the left of the System filter) then choose `Select all`.  
 
-NOTE: Not all of the hosts will select, even if you click "Select all".  This is becuase some of the host have a Template assigned which prevents the system from having access to unapproved content.  For example, Hosts associated with the 2023dec31 Tempate can't access content from 2024 and cannot install this particular advisory.
+NOTE: Not all of the hosts will select, even if you click "Select all".  This is because some of the hosts have a Template assigned which prevents the system from having access to unapproved content.  For example, Hosts associated with the 2023dec31 Template can't access content from 2024 and cannot install this particular advisory.
 
 Once you have hosts selected, click the `Remediate` button which will launch a wizard that will create a playbook for you.
 
