@@ -43,7 +43,7 @@ Review the executive report.   When finished, close it and return to the Hybrid 
 This summary bar helps you to focus on the items across your environment that are most impactful. +
 Located at the top of the Recommendations page, this summary bar shows you:
 
-* `Pathways` - a group of multiple Advisor recommendations under common actions to power more efficient reslution of issues.
+* `Pathways` - a group of multiple Advisor recommendations under common actions to power more efficient resolutions of issues.
 * `Incidents` - issues currently affecting your environment vs items that are proactive in nature.
 * `Critical recommendations` - issues where the total risk of this remediation is critical, based on the combination of likelihood to occur and impact to remediate.
 * `Important recommendations` - issues where the total risk of this remediation is important, based on the combination of likelihood to occur and impact to remediate.
@@ -56,7 +56,7 @@ image::Advisor_deafultfilters.png[Advisor_defaultfilters,100%,100%]
 The idea of these filters is that Insights focuses on showing you recommendations that are enabled (so we don’t show you disabled recommendations), and recommendations that impact the systems in your environment. Each filter listed is called a chip. +
 
 The default filters are: +
-* `Status: Enabled` - You are looking at Recommendations that are enabled (not diabled)
+* `Status: Enabled` - You are looking at Recommendations that are enabled (not disabled)
 * `Systems impacted: 1 or more` - There are actually two filter chips here - one for `1 or more Immutable (OSTree)` and `1 or more Conventional (RPM-DNF)`.  These show under the same area but can be added or removed independently.
 
 If you are looking for a specific recommendation, you can search for it using the filter `Name` and by typing in a name.  For example, with the Name filter selected, type `kernel`.  This will show you all recommendations related to the kernel.   +
@@ -64,7 +64,7 @@ Again - we are only showing you recommendations that affect your systems.
 
 image::Advisor_kernelfilter.png[Advisor_kernelfilter,100%,100%]
 
-In the image above note that searching for `kernel` added a new filter chip.  All of the default filters remain.
+In the image above, note that searching for `kernel` added a new filter chip.  All of the default filters remain.
 
 Click `Reset filters` +
 This resets the filters back to the defaults.
@@ -85,7 +85,7 @@ image::Advisor_all_sap_recco.png[Advisor_all_sap_recco,100%,100%]
 If you also remove the `sap` filter, you will see all enabled recommendations within the Advisor service. +
 You can also remove the `Status: Enabled` filter which will show you all of the recommendations regardless of status.  There should be no filter chips showing (~1700+ recommendations shown).
 
-NOTE: Insights gets updated frequently and new recommendations get added all the time.  There is no list of recommendations outside of the Hyrbid Cloud Console.  If you are looking to find if we have recommendations for specific situations or workloads, filtering the list of recommendations is the best and most up to date way.
+NOTE: Insights gets updated frequently and new recommendations get added all the time.  There is no list of recommendations outside of the Hybrid Cloud Console.  If you are looking to find if we have recommendations for specific situations or workloads, filtering the list of recommendations is the best and most up to date way.
 
 You can search for topics you are interested in by using these filters.
 
@@ -124,7 +124,7 @@ NOTE: The number of affected systems that you see will vary from what is shown i
 
 From this view you can see a little detail about the recommendation, a link to a KB (knowledgebase) article on the issue, a total risk, and a risk of making a change to fix the issue.  You can also see if a system reboot is required to fix the issue and if an ansible playbook is available to help fix the issue.
 
-Specifics of how to fix are not shown in this view as there may be differences on how to fix depending on the version of RHEL.  Version specific advise is given once you look at a specific system that has this issue, which is what you will do next.
+Specifics of how to fix are not shown in this view as there may be differences on how to fix depending on the version of RHEL.  Version specific advice is given once you look at a specific system that has this issue, which is what you will do next.
 
 
 == Recommendations on your system
