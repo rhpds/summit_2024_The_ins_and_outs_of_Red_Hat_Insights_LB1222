@@ -26,6 +26,7 @@ R3dh4t2021!
 ----
 
 In the search bar, clear out any existing search query and type `advisor`. +
+
 This will result in several items.  Locate and click `Insights Advisor | Red Hat Insights`
 
 NOTE: “Advisor” is different from “Advisories”.  Make sure you select Advisor for this exercise.
@@ -38,13 +39,17 @@ In the upper right you have the option to download an executive report. +
 This report will show you a summary of recommendations by severity (critical, important, moderate, or low), recommendations by category (availability, performance, security, or stability), and the top 3 recommendations in your environment. +
 Click `Download executive report` to download the executive report and take a look.
 You will need to save the file locally, then open it to view.
-Review the executive report.   When finished, close it and return to the Hybrid Cloud Console.
+Review the executive report.   
 
-This summary bar helps you to focus on the items across your environment that are most impactful. +
-Located at the top of the Recommendations page, this summary bar shows you:
+You may not know what some of the terms in the report means - that's ok as you will get a chance to review in a few moments. +
+When finished, close the executive report and return to the Hybrid Cloud Console.
+
+
+The summary bar at the top of the Recommendations page helps you to focus on the items across your environment that are most impactful. +
+This summary bar shows you:
 
 * `Pathways` - a group of multiple Advisor recommendations under common actions to power more efficient resolutions of issues.
-* `Incidents` - issues currently affecting your environment vs items that are proactive in nature.
+* `Incidents` - issues currently affecting your environment (vs items that are proactive in nature).
 * `Critical recommendations` - issues where the total risk of this remediation is critical, based on the combination of likelihood to occur and impact to remediate.
 * `Important recommendations` - issues where the total risk of this remediation is important, based on the combination of likelihood to occur and impact to remediate.
 
@@ -56,6 +61,7 @@ image::Advisor_deafultfilters.png[Advisor_defaultfilters,100%,100%]
 The idea of these filters is that Insights focuses on showing you recommendations that are enabled (so we don’t show you disabled recommendations), and recommendations that impact the systems in your environment. Each filter listed is called a chip. +
 
 The default filters are: +
+
 * `Status: Enabled` - You are looking at Recommendations that are enabled (not disabled)
 * `Systems impacted: 1 or more` - There are actually two filter chips here - one for `1 or more Immutable (OSTree)` and `1 or more Conventional (RPM-DNF)`.  These show under the same area but can be added or removed independently.
 
@@ -85,22 +91,22 @@ image::Advisor_all_sap_recco.png[Advisor_all_sap_recco,100%,100%]
 If you also remove the `sap` filter, you will see all enabled recommendations within the Advisor service. +
 You can also remove the `Status: Enabled` filter which will show you all of the recommendations regardless of status.  There should be no filter chips showing (~1700+ recommendations shown).
 
-NOTE: Insights gets updated frequently and new recommendations get added all the time.  There is no list of recommendations outside of the Hybrid Cloud Console.  If you are looking to find if we have recommendations for specific situations or workloads, filtering the list of recommendations is the best and most up to date way.
+NOTE: Insights gets updated frequently and new recommendations get added all the time.  There is not a list of recommendations outside of the Hybrid Cloud Console.  If you are looking to find if Insights has recommendations for specific situations or workloads, filtering the list of recommendations is the best and most up to date way.
 
-You can search for topics you are interested in by using these filters.
+You can search for recommendations you are interested in by using these filters.
 
 When finished - click `Reset filters`.  This will return you to the default view.
 
 == Topics
 
-In addition to using the filters, the Advisor service has a curated list of common workloads that Insights refers to as `Topics`.
+In addition to using the filters, the Advisor service has a curated list of common workloads that Insights refers to as `Topics`. +
 On the left hand navigation bar, click Operations to expand it, then click Advisor, then click Topics.  
 From this point forward this will be shown as: `Operations --> Advisor --> Topics`
 
 NOTE: Depending on your screen resolution the left hand navigation bar may automatically minimize.  You may need to click the hamburger menu (3 lines stacked on top of each other) in the upper left corner in order to see the menu bar.
 
 In the Topics section you see a list of common workloads that the Advisor service can help with.
-You just took a look at SAP recommendations, but you can also look at the SAP topic.
+You just took a look at SAP recommendations using the filters, but you can also look at the SAP topic.
 
 Locate then click `SAP`
 You should see "No recommendations" as you don't have any SAP systems in this environment.
@@ -191,7 +197,7 @@ Your facilitator can demonstrate how this feature works.
 
 However you are able to use the `Download playbook` button.   Go ahead and click this now. +
 The playbook is downloaded via your browser.  You will need to extract the file then open the .yaml +
-As you look through the file you will note several signatures in the file.  These signatures are generated in the event that you choose to remediate through Insights - it prevents any manipulation of the file.
+As you look through the file you will note several signatures in the file.  These signatures are generated in the event that you choose to remediate through Insights - it prevents Insights from running a playbook that has been manipulated.
 
 When you are done looking at the playbook, close it and return to the Hybrid Cloud Console.
 
