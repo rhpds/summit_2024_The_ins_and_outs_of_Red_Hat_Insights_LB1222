@@ -101,13 +101,15 @@ The default is `Conventional (RPM-DNF)` which is where you will focus in this ac
 Click the `Create image` button.
 This starts a wizard that helps you create a custom image.
 
+The numbers align with the steps in the wizard, assuming that you follow the steps below. +
+
 . `Image Output`
 .. In the image output start by selecting a release version.  It defaults to the latest version. +
 In the dropdown list for `Release` select `Red Hat Enterprise Linux (RHEL) 8`. +
 Since you have selected an older version, the release lifecycle information is displayed so that you know where this older release is in the lifecycle. +
 .. Leave the architecture as `x86_64`.  `aarch64` is also an option with this release.
-.. Select `target environments`.  This is plural as you can select multiple options here.+
-.. Select `Amazon Web Services`.  You may notice that in the list of steps on the left you get a new `Target environment` step added as a result of this selection.
+.. Notice that `Select target environments` is plural as you could select multiple options here.+
+.. Select `Amazon Web Services` (AWS).  You may notice that in the list of steps on the left you get a new `Target environment` step added as a result of this selection. (Make sure you only have AWS selected)
 .. Click `Next`
 . `Target environment - Amazon Web Services`
 .. In the Hybrid Cloud Console you have the ability to configure `Sources`.  One of the sources already added is Amazon Web Services (AWS).  In the Source the AWS information is already listed and communication with AWS has been established.  This enables you to create images and register them with AWS very quickly and easily.  It also enables you to launch images if you had sufficient permissions.
@@ -115,8 +117,8 @@ Since you have selected an older version, the release lifecycle information is d
 .. Under `Source Name` select `RH_AWS`.  Notice that this auto populates the default region and the account ID.
 .. Click `Next`
 . `Register`
-.. This wizard makes it simple and easy for images created by Insights to connect to both Red Hat (subscription-manager) and Insights specifically.  It is suggested to use the `Automatically register and enable advanced capabilities` option - this is the default selection.
-.. Registration is handled through activation keys.  This keeps you from transmitting username and password information and also lets you set system purpose information based on the activation keys in use.  Activation keys can be created and managed inside of the Hybrid Cloud Console - If you have the appropriate access.  In order to make sure that the lab is usable for all, access to Activation keys has been removed for your user.
+.. This wizard makes it simple and easy for images created by Insights to connect to both Red Hat (subscription-manager) and Insights specifically.  It is suggested to use the `Automatically register and enable advanced capabilities` option - this is the default selection.  However due to permissions you will not be able to select this in the lab environment. 
+.. If the automatic registrsation was selected, registration is handled through activation keys.  This keeps you from transmitting username and password information and also lets you set system purpose information based on the activation keys in use.  Activation keys can be created and managed inside of the Hybrid Cloud Console - If you have the appropriate access.  In order to make sure that the lab is usable for all, access to Activation keys has been removed for your user.
 .. Select `Register later`.
 .. Click `Next`
 . `File system configuration`
@@ -131,11 +133,11 @@ Since you have selected an older version, the release lifecycle information is d
 .. Click `Next`
 . `Content`
 .. In this section you can add packages to your image.  
-.. Under `Available packages` in the `Search for a package` area type `postgres` and hit enter.
+.. Under `Available packages` in the `Search for a package` area type `postgres` and press enter.
 .. Scroll down the list and find `postgresql-server` and click it.
 .. In the center area between the two boxes, you will see some arrows.  `>`, and `>>`,
-.. Click `>`.  This will list the `postgresql-server` package in the right box, meaning it is a `Chosen package`.
-.. Under `Available packages` in the `Search for a package` area type `openscap` and hit enter.
+.. Click `>`.  This will list the `postgresql-server` package in the right box, making it a `Chosen package`.
+.. Under `Available packages` in the `Search for a package` area, remove any existing text then type `openscap` and hit enter.
 .. Scroll down the list and find `openscap` and click it.
 .. Click `>` to make it a chosen package.
 .. The `Chosen packages` list now contains `postgresql-server` and `openscap`.
@@ -144,15 +146,17 @@ Since you have selected an older version, the release lifecycle information is d
 .. You can also optionally select any `Custom repositories`.  These custom repositories are managed in the `Content` section and will be covered later.
 .. Click `Next`
 . `Details`
-.. Name your image.  Under `Image Name` enter a name such as `rhel8-postgres-<yoursystemname>`
-Reminder: your system name is: {bastion_hostname}
 
 NOTE: Read the text under `Image Name`.  The image name can be 3-63 characters long. It can contain lowercase letters, digits and hyphens, has to start with a letter and cannot end with a hyphen.
+
+.. Name your image.  Under `Image Name` enter a name such as `rhel8-postgres-<yoursystemname>` +
+Reminder: your system name is: {bastion_hostname}
 
 NOTE: Please add some sort of unique identifier to the image name.  Above we suggest using your host’s unique hostname.  
 
 .. Add a description of the image if desired.
 .. Click `Next`
+
 . `Review`
 .. In the `Review` section you can expand the different areas and review the selections that you have made.
 .. Click `Create image`
@@ -163,8 +167,9 @@ We will return to this section prior to completing this module to allow time for
 NOTE: The image creation process will take several minutes (around 10-15 average based on the above selections).
 
 
+== Seeing your system in the Inventory
 
-At this point you want to see the system that you just connected to Insights. +
+At this point you want to see the system that you connected to Insights. +
 In order to do this, you need to go to the RHEL inventory.  
 
 In the search bar at the top of the page, type: Inventory
@@ -197,7 +202,7 @@ That lets you know that the system is registered to subscription manager as well
 The `rhc connect` command that you ran earlier did both of these things for you.
 
 
-== Inventory menu
+== Additional Inventory menu items
 
 Let's look at other information exposed to you in the inventory section of Insights.
 Consider this a brief tour of the inventory.
@@ -226,27 +231,37 @@ This section would redirect you to the role based access control area of the Hyb
 Again, your user only has read permissions here, so the `Manage access` button is not available to you.
 
 
-=== System Configuration section
+== System Configuration section
 This guide will briefly cover the items in the System Configuration section. 
 
-==== Remote Host Configuration (RHC)
+=== Remote Host Configuration (RHC)
 Remote host configuration (rhc) allows you to register with Red Hat Subscription Management (RHSM), connect to Red Hat Insights, and manage your Insights connections with one command.
 
 RHC enables some additional capabilities for Insights for directly connected hosts as well as for hosts connected via Red Hat Satellite.
 
 These additional capabilities can be controlled from this page with the proper permissions.
-You don't have access to Activation keys in this lab and will not be able to access this section.
+You don't have access to Remote Host Configuration manager in this lab and will not be able to access this section.
 
-==== Activation Keys
+Here is an example of what the Remote Host Configuration Manager page looks like:
+
+image::rhc_config_Page.png[rhc_config_Page,100%,100%]
+
+
+=== Activation Keys
 Activation keys assist you in registering systems and prevent you from having to type in a username and password.
 Metadata such as role, system purpose, and usage can be automatically attached to systems via an activation key, and monitored with the Subscription service in Insights.
 
 You don't have access to Activation keys in this lab and will not be able to access this section.
 
-==== Staleness and Deletion
-Staleness and deletion is a new feature just released in April 2024. 
+Here is an example of what the Activation Key page might look like:
 
-Click: `Inventory --> System Configuration --> Staleness and Deletion`
+image::AK_config_page.png[AK_config_page,100%,100%]
+
+
+=== Staleness and Deletion
+Staleness and deletion is a new feature released in April 2024. This feature lets you adjust the timings on when systems are considered stale or when they get deleted from the Insights inventory.
+
+Click: `Inventory --> System Configuration --> Staleness and Deletion` +
 Historically Insights for RHEL has had these rules:
 
 For `Conventional (RPM-DNF)` based systems:
@@ -281,14 +296,15 @@ Information about data collection can be found on the https://www.redhat.com/en/
 
 This page also will tell you how to do things like obfuscate data or perform a collection for inspection to see everything that Insights collects.
 
-It is also important to mention that in our lab we directly connected a system to Insights.  Port 443 is all that needed to be open.   A web proxy is supported.
-If you use Satellite, the connection is automatically proxied through capsules (if used) to the Satellite, then onto Insights.
+It is also important to mention that in our lab we directly connected a system to Insights.  Port 443 is all that needed to be open. +  
+A web proxy is supported. +
+If you use Satellite, the connection is automatically proxied through capsules (if used) to the Satellite, then onto Insights - no configuration is needed.
 
 Additional information can be found in the http://redhat.com/insightsfaq[frequently asked questions document].
 
 == Checking on your image
 Hopefully by this point enough time has lapsed that your image has completed building.
-As mentioned earlier this typically takes 10-15 minutes with the selections identified in the lab exercise, but the additional load on the system may cause this to take a little longer.
+As mentioned earlier this typically takes 10-15 minutes with the selections identified in the lab exercise, but the additional load on the environment may cause this to take a little longer.
 
 Return to the Images area.
 Click: `Inventory --> Images`
@@ -302,7 +318,9 @@ In the `Instance` column you should notice the word Launch.
 
 NOTE:  Your user can open the wizard to see the `Launch` options, but it does not have the permissions necessary to actually launch the image into the cloud provider.
 
-Click `Launch`
+Here is an image of what the Launch wizard looks like:
+
+image::Launch_Wizard.png[Launch_Wizard,100%,100%]
 
 In the `Launch` wizard you can select the accout, the region, the instance type (this is a nice type-ahead box - typing `t3` will show you all of the t3 instance types for example), any templates that you have created on the cloud provider, and the number of instances you want to launch.
 
