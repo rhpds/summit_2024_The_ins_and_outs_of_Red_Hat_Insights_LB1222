@@ -1,4 +1,4 @@
-* xref:module-01.adoc[1. Registration and initial use]
+* xref:module-01.adoc[1. Registration, Inventory, and Images]
 
 * xref:module-02.adoc[2. Predictive and proactive recommendations]
 
