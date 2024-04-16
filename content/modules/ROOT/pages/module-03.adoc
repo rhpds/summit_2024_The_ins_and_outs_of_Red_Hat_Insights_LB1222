@@ -27,7 +27,7 @@ R3dh4t2024!
 
 On the left hand navigation bar go to `Security → Vulnerability → CVEs`
 
-The summary bar at the top of the page helps you focus on the more impactful issues in your environment.  If you have a high number of CVEs in your environment, this summary bar highlights the biggest risks that you should likely focus on addressing first.  Clicking on any of the numbers in the summary bar will apply filters that will show you these CVEs.
+The summary bar at the top of the page helps you focus on the most impactful issues in your environment.  If you have a high number of CVEs in your environment, this summary bar highlights the biggest risks that you should likely focus on addressing first.  Clicking on any of the numbers in the summary bar will apply filters that will show you these CVEs.
 
 image::Vuln_SummaryBar.png[Vuln_SummaryBar,100%,100%]
 
@@ -48,11 +48,14 @@ image::Vuln_DefaultFilters.png[Vuln_SummaryBar,100%,100%]
 * The first filter chips show you only CVEs that affect `1 or more systems` in your infrastructure.  This could be a Conventional (RPM-DNF based) system or an Immutable (OSTree based) system.  
 * The second filter only shows you CVEs with an `advisory available`.  That means you are looking at vulnerabilities that you can fix.
 
+Combining these two filters together means that the initial focus is on CVEs that are affecting your system AND CVEs that you can remediate.
+
 == List all systems with a specific CVE
 
 Let’s say your security team recently heard about a vulnerability that affects SQLlite3 and they want to know if we have any systems with this vulnerability.  The CVE number is   `CVE-2023-7104`.
 
 From the vulnerability page the default filter is CVE (located to the right of the empty checkbox in the image above).  You can type the CVE number in the search box OR even a common search term that might be present in the CVE description like `sqlite`.   +
+
 * In the search box type `7104`. +
 * This will return `CVE-2023-7104` (and possibly others). +
 * Notice that a new filter chip has been added for `Search term: 7104` +
@@ -65,14 +68,15 @@ In the image above you will see that this CVE impacts 34 total systems in the en
 
 NOTE: You will see a different number and that is expected!  The next few steps will reference the number in the screenshot above.
 
-With 34 total systems, 17 of them are conventional systems.  If you click Immutable there are an additional 17 systems.
+With 34 total systems, 17 of them are conventional systems.  If you were to click Immutable there would be an additional 17 systems.
 
 In the upper right of the page you will see a `Business risk` and a `Status`.  In the screenshot above they are shown as `Not defined` and `Not reviewed` respectively.  
 
 NOTE: You may see a different Business risk or Status than `Not defined` or `Not reviewed`.  That is ok.
 
 `Business risk` is intended for you to be able to define a risk that is specific to your business - this CVE is tagged with a severity of moderate, but if you have a workload that is deeply affected by this vulnerability, then this may be a more critical issue for you.   +
-If you click `Actions` in the upper right you will have the option to `Edit business risk`.  Click this option. +
+
+Click `Actions` in the upper right. You will have the option to `Edit business risk`.  Click this option. +
 You can set the business risk to: 
 
 * Critical
@@ -86,7 +90,7 @@ Click `Cancel` so that you make no changes at this time.
 
 NOTE: You aren't making any changes so that you don't impact what other people taking the lab might see.  If you change the status of the CVE then it will change for other people
 
-Similarly, if you click `Actions` in the upper right you will have the option to `Edit status`. Click this option. +
+Similarly, click `Actions` in the upper right. You will have the option to `Edit status`. Click this option. +
 You can use the status field to identify where you are in the mitigation process.   +
 Status options are:
 
@@ -119,7 +123,7 @@ NOTE: The following steps are for Conventional (RPM-DNF) based systems.  Immutab
 
 Once you have hosts selected, click the `Remediate` button which will launch a wizard that will create a playbook for you.
 
-You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to Create new playbook.   Give your playbook a name like: '7104 fix <yourhostname>`
+You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to Create new playbook.   Give your playbook a name like: `7104 fix <yourhostname>`
 
 Reminder: your system name is: {bastion_hostname}
 
@@ -145,7 +149,7 @@ This playbook can help simplify the resolution of this issue - you could easily 
 
 Close the playbook and return to the Hybrid Cloud Console browser window.
 
-== List all CVEs on your system
+== List all CVEs impacting your system
 
 Let’s return to the vulnerability page and look at your specific host with the goal of getting a list of all CVEs that affect your specific host.
 
