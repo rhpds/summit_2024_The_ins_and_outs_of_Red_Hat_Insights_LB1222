@@ -225,12 +225,14 @@ sudo yum install tuned-profiles-postgresql -y
 sudo tuned-adm profile postgresql
 sudo tuned-adm active
 sudo insights-client
- 
 ----
 
 NOTE: The onscreen directions will also include a `tuned-adm verify` command.  Due to the lab setup this verification will fail and needs a reboot to succeed.  We don't want to reboot the lab system as it isn't necessary for the fix in this environment, but in a production environment it should be used.
 
 When you have completed running these commands, refresh your browser window.   +
+
+WARNING: Make sure that you ran the insights-client command above and it has completed.  Otherwise the recommendation will continue to be displayed.
+
 The recommendation for postgresql should no longer be present. +
 When you fixed the issue then ran the `insights-client` command manually, a new analysis was performed. +
 Since the issue no longer exists it has been cleared from your view.
