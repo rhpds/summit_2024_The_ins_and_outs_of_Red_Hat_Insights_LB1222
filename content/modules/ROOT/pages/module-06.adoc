@@ -130,6 +130,8 @@ Again, due to restrictions on your user you cannot `Add selected repositories` t
 The Patch service has two parts - systems and templates.
 
 Templates allow you to control the scope of package and advisory updates to be installed on selected systems. +
+You may have already seen the effect of this where some systems are applicable to a patch, but the package isn't installable on the host due to the content template settings. 
+
 There will be some changes to Templates in the near future, so while you should feel free to take a look, please don’t make any changes at this time.  
 
 Go to: `Content → Patch → Systems`
