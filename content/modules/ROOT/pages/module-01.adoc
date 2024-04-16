@@ -57,19 +57,17 @@ NOTE: You will need to open a new browser window to access the Hybrid Cloud Cons
 
 Log into the Hybrid Cloud Console with the following credentials: 
 
-
 User:
 [source,sh,role=execute]
 ----
-lab-434C
+lab-EB9A
 ----
 
 Password:
 [source,sh,role=execute]
 ----
-R3dh4t2021!
+R3dh4t2024!
 ----
-
 
 This is the main page of the Hybrid Cloud Console.   
 There are several offerings available on the Hybrid Cloud Console including Red Hat Insights which is included with subscriptions for Red Hat Enterprise Linux, Red Hat OpenShift, and Red Hat Ansible Automation Platform.
