@@ -1,11 +1,15 @@
-* xref:module-01.adoc[1. Registration, Inventory, and Images]
+* xref:module-01.adoc[1. Registration, inventory, and images]
 
 * xref:module-02.adoc[2. Predictive and proactive recommendations]
 
 * xref:module-03.adoc[3. Vulnerability]
 
-* xref:module-04.adoc[4. Malware Detection]
+* xref:module-04.adoc[4. Malware detection]
 
-* xref:module-05.adoc[5. Identifying Drift]
+* xref:module-05.adoc[5. Identifying drift]
 
-* xref:module-06.adoc[6. Content and Patching]
+* xref:module-06.adoc[6. Content and patching]
+
+* xref:module-07.adoc[7. Subscriptions]
+
+* xref:recap.adoc[8. Recap of Ins and Outs of Red Hat Insights]
