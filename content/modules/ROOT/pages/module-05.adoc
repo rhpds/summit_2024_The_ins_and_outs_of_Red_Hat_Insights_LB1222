@@ -6,7 +6,7 @@ In this module you will evaluate your system for drift from a known state using 
 
 The Drift service uses what we call baselines made up out of system facts to identify the expected state of a system.  You can then compare the current state of a system to the baseline to evaluate what has changed and what actions you might need to take to get a system into the expected state.
 
-NOTE: Make sure you complete this module after you complete the Advisor module.
+WARNING: Make sure you complete this module after you complete the Advisor module.
 
 == Baselines
 
@@ -28,7 +28,7 @@ The `Add fact or category` button is not available since your user only has the 
 You can also export the list of system facts included in the baseline out to a CSV or JSON like you can throughout most of Insights.
 
 If you click the `Associated systems` tab you can see the systems that are assigned to this baseline. +
-If your user was a Drift administrator then you would also see a `Add associated system` button.  Again, since you only have the Drift user role this button is not displayed.
+If your user was a Drift administrator then you would also see an `Add associated system` button.  Again, since you only have the Drift user role this button is not displayed.
 
 NOTE:  You cannot add additional files or data to a baseline or to comparisons.  You can only compare the data that Insights is already collecting.
 
@@ -62,7 +62,7 @@ In your comparison, most things should match since the baseline was created from
 
 image::Drift_comparison.png[Drift_comparison,100%,100%]
 
-As you can see, the only differences between the systems are fqdn, network interfaces, and the tuned_profile.
+As you can see, the main differences between the systems are fqdn, network interfaces, and the tuned_profile.
 
 In the Advisor exercise you set the tuned profile to work with the postgresql database and you can see that reflected here as it is a deviation from the baseline.
 
