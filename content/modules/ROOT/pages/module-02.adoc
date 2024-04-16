@@ -16,13 +16,13 @@ Log into the Hybrid Cloud Console with the following credentials: +
 User:
 [source,sh,role=execute]
 ----
-lab-434C
+lab-EB9A
 ----
 
 Password:
 [source,sh,role=execute]
 ----
-R3dh4t2021!
+R3dh4t2024!
 ----
 
 In the search bar, clear out any existing search query and type `advisor`. +
