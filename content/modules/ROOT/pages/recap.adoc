@@ -1,0 +1,20 @@
+= Recap of the Ins and Outs of Red Hat Insights
+
+In this lab you got to experience a variety of the services available in Insights.
+
+You connected a host, created an image, identified an issue with the postgresql workload and fixed it, identified vulnerabilities on your system, identified the presence of malware, evaluated your system for drift against a known baseline, and identified patching that is needed.
+
+That is only a subset of the capabilities of Insights.
+
+Insights is included in subscriptions for Red Hat Enterprise Linux, Red Hat OpenShift, and Red Hat Ansible Automation Platform.  
+In other words - this is probably something that you already have access to.
+Hopefully you have seen how simple and easy Insights is to use.
+
+For additional information, resources, and videos we encourage you to visit the Red Hat Insights Information and Resources page at http://redhat.com/insightsinfo[redhat.com/insightsinfo].
+
+Thank you for your participation in today’s lab.  
+If you have any additional questions please ask your lab facilitators.
+
+Please don’t forget to complete your survey.
+
+Thank you, and enjoy Red Hat Summit and AnsibleFest!
