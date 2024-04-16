@@ -48,12 +48,13 @@ To: +
 Save and exit the text editor.
 
 If you aren’t familiar with vi:
- Go to the end of the line and press `i` to enter editing mode. 
- Delete “true” then type in “false” 
- Press the "esc" key to exit editing mode. 
- Type:
- :wq
-This will write the file and quit the editor.
+
+* Go to the end of the line and press `i` to enter editing mode. 
+* Delete “true” then type in “false” 
+* Press the "esc" key to exit editing mode. 
+* Type:+
+ `:wq`
+* This will write the file and quit the editor.
 
 The Malware detection service is now setup. +
 Since this is a new system, there is nothing to find - yet.
@@ -76,7 +77,7 @@ sudo curl https://secure.eicar.org/eicar.com -o /home/lab-user/eicar.com
 sudo curl https://secure.eicar.org/eicar.com.txt -o /home/lab-user/eicar.com.txt
 sudo curl https://secure.eicar.org/eicar_com.zip -o /home/lab-user/eicar_com.zip
 sudo curl https://secure.eicar.org/eicarcom2.zip -o /home/lab-user/eicar_com2.zip
-
+ 
 ----
 
 Run the `ll` command again. +
@@ -107,7 +108,7 @@ Matched rule XFTI_EICAR_AV_Test in file /home/lab-user/eicar_com2.zip
 That is yara finding the malware signature from eicar in each of the four files.
 Now you can see malware detected inside of Insights.
 
-NOTE: Wait until the command is completely finished running and you are returned to the terminal prompt before continuing.
+WARNING: Wait until the command is completely finished running and you are returned to the terminal prompt before continuing.
 
 === Reviewing Malware Detection Results
 
