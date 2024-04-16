@@ -1,0 +1,109 @@
+= Subscriptions
+
+As an administrator, you commonly need to inquire into where you are using Red Hat Enterprise Linux (RHEL), and if you need to purchase more of it. The Subscriptions Service (aka Swatch) provides a means to look into this usage and make business decisions based upon it.
+
+WARNING: You need to log out and log back in as a different user for this exercise. While the steps will work in the same account as the other exercises, the lab usage makes the subscription graphing unrealistic.
+
+Log into the Hybrid Cloud Console with the following credentials: +
+
+User:
+[source,sh,role=execute]
+----
+swatch_demo_user
+----
+
+Password:
+[source,sh,role=execute]
+----
+Redhat1!
+----
+
+
+In the search box at the top of the page search for `Subscription`
+Find and select `Subscriptions Usage`
+
+image::swatch_usagechart.png[swatch_usagechart,100%,100%]
+
+In this view you are presented with three major items:
+
+* The `Current instances` tab, which shows the systems which were used to generate the most recent tally
+* The `Current Subscriptions` tab which shows the subscriptions which were used in the generation of the dotted line.
+* The `usage chart`, which shows the summarized high-watermark usage (in sockets for RHEL and RHEL addons) broken out by deployment type (Physical, Virtual, Public Cloud, Hypervisor). Additionally this view shows your subscription capacity (the sum total of all subscriptions in this view) as a dotted line. By default this view shows the past 30 days, but can be changed
+
+== Current Instances tab
+
+Below the usage graph, you'll find the `Current Instances` tab. If it is not already selected, click on it.
+
+image::swatch_currentinstances.png[swatch_currentinstances,100%,100%]
+
+
+In this tab, you'll find:
+
+* Name - Known hostname of the system.
+* Guests - Number of virtual guests running on the system (if the system is a hypervisor). This value is set to “--” if the system isn’t hosting any guests
+* Type - Class of system as determined by DMI data and host/guest mapping data
+* Sockets - The number of sockets which this system requires subscription coverage for.
+** Note 1: This may differ from the number of sockets actually installed in the system. Example: Red Hat Enterprise Linux is generally sold per socket-pair (every 2 sockets), so a single socket server would show in the subscription service as requiring coverage for 2 sockets.
+** Note 2: if the sockets value is “--”, this denotes a system which does not require subscription coverage as it has been paid for via a different means, usually a cloud marketplace. These systems will show in the ‘current instances’ list, but do not contribute to the usage chart.
+* Last Seen - When was this system last seen in the subscription service.
+
+== Current Subscriptions tab
+
+Below the usage graph, you'll also find the `Current Subscriptions` tab. Click on that and we'll have a look at its contents.
+
+image::swatch_currentsubs.png[swatch_currentsubs,100%,100%]
+
+
+On this tab, each entry includes the:
+
+* Product - The name of the subscription
+* Service Level - What is the expectation of support from Red Hat?
+* Quantity - How many of these subscriptions have been purchased.
+* Sockets - The total amount of sockets provided.
+* Next Renewal - The next date a renewal for this subscription is occuring
+
+== Usage chart
+
+Now, let’s look at the usage chart. You can hover over any date in the chart in order to get the summary for that day. If your usage exceeds your subscription threshold, you can address this via a number of means:
+
+image::swatch_usagechart.png[swatch_usagechart,100%,100%]
+
+* Purchasing additional subscriptions
+* Powering down workloads
+* Reporting the additional deployments at your next buffer/true-up or contracted reporting window.
+
+=== Filtering the subscription reports
+
+Now that you have a good understanding of how the subscription service is laid out, your manager wants to understand how much Premium RHEL is in use.
+
+To do this, you’ll use the filtering functionality of the subscription service. 
+Select the `SLA` drop-down and select `Premium`.
+
+image::swatch_premium_filter.png[swatch_premium_filter,100%,100%]
+
+You’ll notice that ALL three aspects of the page will change to match your filter of Premium:
+
+The usage chart now changes to reflect only those subscriptions and systems which are Premium. +
+The Current Instances tab only shows systems which are tagged Premium. +
+The Current Subscriptions tab only shows subscriptions with a Premium SLA.
+
+We can also leverage the subscription service to “look into the past” to get an idea of what our previous usage was. This is useful if you want to do forecasting for future purchases. +
+
+Next, we’ll use the date range selector (in the upper right) to show our usage from the past quarter. +
+Select `Past 12 weeks (weekly)` as your date range, and again, you’ll see your usage chart change to match the selected date range.
+
+image::swatch_12weeks_filter.png[swatch_12weeks_filter,100%,100%]
+
+
+
+=== Filtering for addon subscriptions
+
+In addition to being able to show usage for `base RHEL`, the Subscriptions service can also show usage for RHEL addons (RHEL High availability and resilient storage), layered products (like Satellite), and other products (like OpenShift).
+
+In this example, you want to take a look at the size of your Satellite Server environment. You can do this by selecting `Satellite Server` from the Variant drop down.
+
+image::swatch_sat_variant.png[swatch_sat_variant,100%,100%]
+
+Hopefully this has helped you see that the Subscriptions Service provides simple insight into your Red Hat product usage and makes it easy for you to see that usage, and make operational decisions based upon it.
+
+This module is complete.
