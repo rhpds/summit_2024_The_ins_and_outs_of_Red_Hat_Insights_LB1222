@@ -37,6 +37,7 @@ That will default you to the https://console.redhat.com/insights/advisor/recomme
 This view shows you the recommendations of all systems connected to Insights. +
 In the upper right you have the option to download an executive report. +
 This report will show you a summary of recommendations by severity (critical, important, moderate, or low), recommendations by category (availability, performance, security, or stability), and the top 3 recommendations in your environment. +
+
 Click `Download executive report` to download the executive report and take a look.
 You will need to save the file locally, then open it to view.
 Review the executive report.   
@@ -48,7 +49,7 @@ When finished, close the executive report and return to the Hybrid Cloud Console
 The summary bar at the top of the Recommendations page helps you to focus on the items across your environment that are most impactful. +
 This summary bar shows you:
 
-* `Pathways` - a group of multiple Advisor recommendations under common actions to power more efficient resolutions of issues.
+* `Pathways` - a group of multiple Advisor recommendations solved with common actions to power more efficient resolutions of issues.
 * `Incidents` - issues currently affecting your environment (vs items that are proactive in nature).
 * `Critical recommendations` - issues where the total risk of this remediation is critical, based on the combination of likelihood to occur and impact to remediate.
 * `Important recommendations` - issues where the total risk of this remediation is important, based on the combination of likelihood to occur and impact to remediate.
@@ -112,14 +113,14 @@ Locate then click `SAP`
 You should see "No recommendations" as you don't have any SAP systems in this environment.
 Remove the `Systems impacted` filter(s) and you should see all of the SAP recommendations
 
-NOTE: A bug was observed during testing where the `Systems impacted` filters were not showing.  If you do not see these filters, tap `Reset filters` and they should show up.
+WARNING: A bug was observed during testing where the `Systems impacted` filters were not showing.  If you do not see these filters, tap `Reset filters` and they should show up.
 
 Return to the Topics page
 On the left hand navigation bar go to `Operations --> Advisor --> Topics`
 
-Find the `PostgreSQL` topic.
-Notice that several systems are reporting a recommendation for this topic.
-Select the `PostgreSQL` topic.
+Find the `PostgreSQL` topic (don't click it yet).
+Notice in the right column that several systems are reporting a recommendation for this topic.
+Click the `PostgreSQL` topic.
 You will see a topic: +
 `The postgresql database performance decreases when the tuned best practices are not applied` +
 Click the arrow to the left of the topic to expand out the details.
@@ -147,7 +148,7 @@ This will show you the list of recommendations that are present on this system.
 
 You should see a recommendation for postgresql listed: +
 `The postgresql database performance decreases when the tuned best practices are not applied` +
-Click on the recommendation to expand the details. +
+Click on the arrow to the left of the recommendation name to expand the details. +
 This will show you:
 
 * Why the issue was detected
@@ -160,14 +161,14 @@ In this case, the postgresql server was started, but a tuned profile was not app
 To fix this, we install then apply the tuned profile.  The step by step directions are included, or you can generate an ansible playbook inside of Insights. +
 Not every recommendation or issue that Insights finds has a playbook, but most do.
 
+You will create a playbook in the next step, but you will not be able to execute the playbook in the lab environment.  You will end this module with a manual remediation of the issue.
+
 === Generating a remediation playbook
 
 To generate the playbook, select the checkbox next to the recommendation. +
 Once the checkbox is selected, the `Remediate` button becomes available.
 
-
-If you click the remediate button it will launch a wizard that will create a playbook for you. +
-Click `Remediate`.
+Click `Remediate` to launch a wizard that will create a playbook for you. +
 
 You can add this fix to an existing playbook or you can create a new playbook.  Insights defaults to Create new playbook.   Give your playbook a name like: `postgresql fix <yourhostname>` +
 Reminder: your system name is: {bastion_hostname}
@@ -191,7 +192,7 @@ Hover your mouse over the greyed out button and you should see a message explain
 
 Your user in this lab does not have permission to execute remediation.  
 No user in the Hybrid Cloud Console gets this permission by default - even organization administrators.  
-it has to be explicitly provided. 
+It has to be explicitly provided. 
 With so many people potentially taking this lab at the same time we have opted to not enable this feature.  
 Your facilitator can demonstrate how this feature works.
 
@@ -201,6 +202,8 @@ As you look through the file you will note several signatures in the file.  Thes
 
 When you are done looking at the playbook, close it and return to the Hybrid Cloud Console.
 
+This playbook could be used to simplify the process of creating a remediation playbook.  It is also possible to sync it with Ansible Automation Platform (the steps for syncing this is in the controller documentation).
+
 Since you don’t have the permissions to execute through the remediations service, let’s return to the Advisor service and manually fix this issue.
 
 == Manual Remediation
@@ -208,11 +211,13 @@ Since you don’t have the permissions to execute through the remediations servi
 Using the left hand navigation bar go to: +
 `Operations → Advisor → Systems` +
 Find and select your system. +
-Click on the Postgresql recommendation.
+Reminder: your system name is: {bastion_hostname}
 
-The recommendation will tell you step by step how to fix the issue.
+Click on the arrow to the left of the Postgresql recommendation to expand it.
 
-Switch to your ssh window and enter the commands on the system.  
+The recommendation will tell you step by step how to fix the issue in the `Steps to resolve` section.
+
+In your ssh window, enter the commands on the system.  
 
 [source,sh,role=execute]
 ----
@@ -220,7 +225,7 @@ sudo yum install tuned-profiles-postgresql -y
 sudo tuned-adm profile postgresql
 sudo tuned-adm active
 sudo insights-client
-
+ 
 ----
 
 NOTE: The onscreen directions will also include a `tuned-adm verify` command.  Due to the lab setup this verification will fail and needs a reboot to succeed.  We don't want to reboot the lab system as it isn't necessary for the fix in this environment, but in a production environment it should be used.
@@ -229,5 +234,7 @@ When you have completed running these commands, refresh your browser window.   +
 The recommendation for postgresql should no longer be present. +
 When you fixed the issue then ran the `insights-client` command manually, a new analysis was performed. +
 Since the issue no longer exists it has been cleared from your view.
+
+You have identified a situation that is outside of the best practices for your workload, you have resolved the issue, and Insights no longer reports it.
 
 This module is complete.
