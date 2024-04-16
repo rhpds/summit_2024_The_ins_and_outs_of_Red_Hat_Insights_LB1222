@@ -9,6 +9,22 @@ There are thousands of CVEs - Insights helps you to focus on CVE information tha
 
 First let’s do a high level overview of the main page of this service.
 
+If you do not have the Hybrid cloud Console still open, please use a web browser to navigate to console.redhat.com. +
+
+Log into the Hybrid Cloud Console with the following credentials: +
+
+User:
+[source,sh,role=execute]
+----
+lab-EB9A
+----
+
+Password:
+[source,sh,role=execute]
+----
+R3dh4t2024!
+----
+
 On the left hand navigation bar go to `Security → Vulnerability → CVEs`
 
 The summary bar at the top of the page helps you focus on the more impactful issues in your environment.  If you have a high number of CVEs in your environment, this summary bar highlights the biggest risks that you should likely focus on addressing first.  Clicking on any of the numbers in the summary bar will apply filters that will show you these CVEs.
