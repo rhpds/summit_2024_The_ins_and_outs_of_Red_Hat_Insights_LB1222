@@ -119,9 +119,15 @@ Since you have selected an older version, the release lifecycle information is d
 .. If the automatic registrsation was selected, registration is handled through activation keys.  This keeps you from transmitting username and password information and also lets you set system purpose information based on the activation keys in use.  Activation keys can be created and managed inside of the Hybrid Cloud Console - If you have the appropriate access.  In order to make sure that the lab is usable for all, access to Activation keys has been removed for your user.
 .. Select `Register later`.
 .. Click `Next`
+. `OpenSCAP`
+.. Image builder can create images that are intended to be evaluated by OpenSCAP compliance policies based on the RHEL SCAP Security Guide.   In this step you can pick a policy to be evaluated against.
+.. remove `None` and type `PCI`
+.. Select `PCI-DSS v4.0 Control Baseline for Red Hat Enterprise Linux 8`
+.. Review the information on screen.  This will define the profile and show some of the appropriate packages, file system configurations, kernel arguments, and services that will be added to the image.
+.. Click `Next`
 . `File system configuration`
 .. You can use automatic partitioning or you can manually configure the partitions.  
-.. Click `Manually configure partitions`.  This opens up a new table where you can add additional partitions.
+.. In a previous step if a SCAP profile wasn't selected, then you will need to select `Manually configure partitions`.  This opens up a new table where you can add additional partitions.
 .. Click `Add partition`
 .. Set `/home` to '5 GiB`.
 .. Click `Add partition`
@@ -138,16 +144,17 @@ Since you have selected an older version, the release lifecycle information is d
 .. Under `Available packages` in the `Search for a package` area, remove any existing text (You can clisk the `x` in the search box) then type `openscap` and hit enter.
 .. Scroll down the list and find `openscap` and click it.
 .. Click `>` to make it a chosen package.
-.. The `Chosen packages` list now contains `postgresql-server` and `openscap`.
+.. The `Chosen packages` list now contains `postgresql-server` and `openscap`.  It will also contain any selections from the OpenSCAP policy that was selected.
 .. Repeat with any additional desired packages.
 .. Click `Next`
 .. You can also optionally select any `Custom repositories`.  These custom repositories are managed in the `Content` section and will be covered later.
 .. Click `Next`
 . `Details`
-
-NOTE: Read the text under `Image Name`.  The image name can be 3-63 characters long. It can contain lowercase letters, digits and hyphens, has to start with a letter and cannot end with a hyphen.
-NOTE: Please add some sort of unique identifier to the image name.  We suggest using your host’s unique hostname.
-
++
+WARNING: Read the text under `Image Name`.  The image name can be 3-63 characters long. It can contain lowercase letters, digits and hyphens, has to start with a letter and cannot end with a hyphen.  If you have an error in this step your name probably contains a period or uppercase letter.
++
+NOTE: Please add some sort of unique identifier to the image name.  We suggest using your host’s unique hostname. Since your hostname includes a period you should only use the text before the period.
++
 .. Name your image.  Under `Image Name` enter a name such as `rhel8-postgres-<yoursystemname>` +
 Reminder: your system name is: {bastion_hostname}
 .. Add a description of the image if desired.
