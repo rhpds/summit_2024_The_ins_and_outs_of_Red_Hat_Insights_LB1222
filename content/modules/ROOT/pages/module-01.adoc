@@ -108,7 +108,7 @@ The numbers align with the steps in the wizard, assuming that you follow the ste
 In the dropdown list for `Release` select `Red Hat Enterprise Linux (RHEL) 8`. +
 Since you have selected an older version, the release lifecycle information is displayed so that you know where this older release is in the lifecycle. +
 .. Leave the architecture as `x86_64`.  `aarch64` is also an option with this release.
-.. Notice that `Select target environments` is plural as you could select multiple options here.+
+.. Notice that `Select target environments` is plural as you could select multiple options here. +
 .. Select `Amazon Web Services` (AWS).  You may notice that in the list of steps on the left you get a new `Target environment` step added as a result of this selection. (Make sure you only have AWS selected)
 .. Click `Next`
 . `Target environment - Amazon Web Services`
@@ -137,7 +137,7 @@ Since you have selected an older version, the release lifecycle information is d
 .. Scroll down the list and find `postgresql-server` and click it.
 .. In the center area between the two boxes, you will see some arrows.  `>`, and `>>`,
 .. Click `>`.  This will list the `postgresql-server` package in the right box, making it a `Chosen package`.
-.. Under `Available packages` in the `Search for a package` area, remove any existing text then type `openscap` and hit enter.
+.. Under `Available packages` in the `Search for a package` area, remove any existing text (You can clisk the `x` in the search box) then type `openscap` and hit enter.
 .. Scroll down the list and find `openscap` and click it.
 .. Click `>` to make it a chosen package.
 .. The `Chosen packages` list now contains `postgresql-server` and `openscap`.
@@ -148,15 +148,12 @@ Since you have selected an older version, the release lifecycle information is d
 . `Details`
 
 NOTE: Read the text under `Image Name`.  The image name can be 3-63 characters long. It can contain lowercase letters, digits and hyphens, has to start with a letter and cannot end with a hyphen.
+NOTE: Please add some sort of unique identifier to the image name.  We suggest using your host’s unique hostname.
 
 .. Name your image.  Under `Image Name` enter a name such as `rhel8-postgres-<yoursystemname>` +
 Reminder: your system name is: {bastion_hostname}
-
-NOTE: Please add some sort of unique identifier to the image name.  Above we suggest using your host’s unique hostname.  
-
 .. Add a description of the image if desired.
 .. Click `Next`
-
 . `Review`
 .. In the `Review` section you can expand the different areas and review the selections that you have made.
 .. Click `Create image`
@@ -196,10 +193,10 @@ NOTE: We will not cover every service in Insights during this lab as there is a 
 Make sure you are still on the `General information` tab and scroll down to the bottom.
 You will see a section called `Data collectors`.
 This is the section that lets you know where the inventory is getting your system information from.
-You should see `insights-client` and `subscription-manager` as active for your system.  
+You should see `insights-client` as active for your system.  
 
-That lets you know that the system is registered to subscription manager as well as connected via the insights-client. +
-The `rhc connect` command that you ran earlier did both of these things for you.
+That lets you know that the system is registered via the insights-client. +
+The `rhc connect` command that you ran earlier did this for you.
 
 
 == Additional Inventory menu items
@@ -265,11 +262,13 @@ Click: `Inventory --> System Configuration --> Staleness and Deletion` +
 Historically Insights for RHEL has had these rules:
 
 For `Conventional (RPM-DNF)` based systems:
+
 * A system is stale after 1 day (24 hours) without sending data
 * A system gets a stale warning after 7 days of not sending data.  This warning means the system is at risk from being removed from the inventory.
 * A system is deleted after 14 days of sending no data.  If you want to add this system back into the inventory it will need to be re-registered with Insights.
 
 For `Immutable (OSTree)` based systems:
+
 * A system is state after 2 days without sending data
 * A system gets a stale warning after 180 days without sending data
 * A system is deleted after 2 years of sending no data.  If you want to add this system back into the inventory it will need to be re-registered with Insights.
@@ -310,7 +309,8 @@ Return to the Images area.
 Click: `Inventory --> Images`
 
 In the table at the bottom of the page locate your image.
-Under the `Status` column you should see `Ready`
+Under the `Status` column you should see `Ready`. +
+If not, that is ok - Ready status isn't required to complete the exercise.
 
 NOTE: If the system isn't ready feel free to come back at a later time.  
 
@@ -324,7 +324,7 @@ image::Launch_Wizard.png[Launch_Wizard,100%,100%]
 
 In the `Launch` wizard you can select the accout, the region, the instance type (this is a nice type-ahead box - typing `t3` will show you all of the t3 instance types for example), any templates that you have created on the cloud provider, and the number of instances you want to launch.
 
-The next step will allow you to select or upload an ssh key for use to connect to the system. 
+The next step would allow you to select or upload an ssh key for use to connect to the system. 
 While you cannot complete launching an image in this lab, we do have videos of this available that you can watch later or your lab facilitator can show this functionality.
 
 
