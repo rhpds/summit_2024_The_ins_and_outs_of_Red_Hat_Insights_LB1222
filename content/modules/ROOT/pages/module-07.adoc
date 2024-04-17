@@ -4,6 +4,9 @@ As an administrator, you commonly need to inquire into where you are using Red H
 
 WARNING: You need to log out and log back in as a different user for this exercise. While the steps will work in the same account as the other exercises, the lab usage makes the subscription graphing unrealistic.
 
+Log out of the Hybrid Cloud Console by clicking your user name in the upper right, then click `Log out`
+This will return you to the login in screen.
+
 Log into the Hybrid Cloud Console with the following credentials: +
 
 User:
