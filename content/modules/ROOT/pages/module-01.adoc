@@ -116,18 +116,16 @@ Since you have selected an older version, the release lifecycle information is d
 .. Click `Next`
 . `Register`
 .. This wizard makes it simple and easy for images created by Insights to connect to both Red Hat (subscription-manager) and Insights specifically.  It is suggested to use the `Automatically register and enable advanced capabilities` option - this is the default selection.  However due to permissions you will not be able to select this in the lab environment. 
-.. If the automatic registrsation was selected, registration is handled through activation keys.  This keeps you from transmitting username and password information and also lets you set system purpose information based on the activation keys in use.  Activation keys can be created and managed inside of the Hybrid Cloud Console - If you have the appropriate access.  In order to make sure that the lab is usable for all, access to Activation keys has been removed for your user.
+.. If the automatic registration was selected, registration is handled through activation keys.  This keeps you from transmitting username and password information and also lets you set system purpose information based on the activation keys in use.  Activation keys can be created and managed inside of the Hybrid Cloud Console - If you have the appropriate access.  In order to make sure that the lab is usable for all, access to Activation keys has been removed for your user.
 .. Select `Register later`.
 .. Click `Next`
 . `OpenSCAP`
 .. Image builder can create images that are intended to be evaluated by OpenSCAP compliance policies based on the RHEL SCAP Security Guide.   In this step you can pick a policy to be evaluated against.
-.. remove `None` and type `PCI`
-.. Select `PCI-DSS v4.0 Control Baseline for Red Hat Enterprise Linux 8`
-.. Review the information on screen.  This will define the profile and show some of the appropriate packages, file system configurations, kernel arguments, and services that will be added to the image.
+.. While you should feel free to select the drop down box, leave this at `None`.  Changing the setting would affect the other steps below. 
 .. Click `Next`
 . `File system configuration`
 .. You can use automatic partitioning or you can manually configure the partitions.  
-.. In a previous step if a SCAP profile wasn't selected, then you will need to select `Manually configure partitions`.  This opens up a new table where you can add additional partitions.
+.. Select `Manually configure partitions`.  This opens up a new table where you can add additional partitions.
 .. Click `Add partition`
 .. Set `/home` to '5 GiB`.
 .. Click `Add partition`
@@ -144,7 +142,7 @@ Since you have selected an older version, the release lifecycle information is d
 .. Under `Available packages` in the `Search for a package` area, remove any existing text (You can clisk the `x` in the search box) then type `openscap` and hit enter.
 .. Scroll down the list and find `openscap` and click it.
 .. Click `>` to make it a chosen package.
-.. The `Chosen packages` list now contains `postgresql-server` and `openscap`.  It will also contain any selections from the OpenSCAP policy that was selected.
+.. The `Chosen packages` list now contains `postgresql-server` and `openscap`.  
 .. Repeat with any additional desired packages.
 .. Click `Next`
 .. You can also optionally select any `Custom repositories`.  These custom repositories are managed in the `Content` section and will be covered later.
