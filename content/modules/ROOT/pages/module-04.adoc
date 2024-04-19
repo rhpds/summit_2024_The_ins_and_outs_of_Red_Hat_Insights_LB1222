@@ -73,10 +73,7 @@ On your host we will use the curl command to copy the files from the eicar webpa
 Run the following commands: +
 [source,sh,role=execute]
 ----
-sudo curl https://secure.eicar.org/eicar.com -o /home/lab-user/eicar.com
-sudo curl https://secure.eicar.org/eicar.com.txt -o /home/lab-user/eicar.com.txt
-sudo curl https://secure.eicar.org/eicar_com.zip -o /home/lab-user/eicar_com.zip
-sudo curl https://secure.eicar.org/eicarcom2.zip -o /home/lab-user/eicar_com2.zip
+sudo curl https://secure.eicar.org/eicar.com -o /home/lab-user/eicar.com ; sudo curl https://secure.eicar.org/eicar.com.txt -o /home/lab-user/eicar.com.txt ; sudo curl https://secure.eicar.org/eicar_com.zip -o /home/lab-user/eicar_com.zip ; sudo curl https://secure.eicar.org/eicarcom2.zip -o /home/lab-user/eicar_com2.zip
  
 ----
 
