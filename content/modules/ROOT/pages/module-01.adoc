@@ -27,6 +27,8 @@ Run the command:
 sudo rhc connect -o 13959588 -a AK_Summit_Lab
 ----
 
+NOTE: In the box above you can click the copy icon to the right side of the command to copy it to your clipboard.  Then you can paste onto the terminal window.
+
 In the output you should see something similar to:
 
 
