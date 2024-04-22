@@ -109,7 +109,7 @@ NOTE: Depending on your screen resolution the left hand navigation bar may autom
 In the Topics section you see a list of common workloads that the Advisor service can help with.
 You just took a look at SAP recommendations using the filters, but you can also look at the SAP topic.
 
-Locate then click `SAP`
+Locate then click `SAP`.
 You should see "No recommendations" as you don't have any SAP systems in this environment.
 Remove the `Systems impacted` filter(s) and you should see all of the SAP recommendations
 
