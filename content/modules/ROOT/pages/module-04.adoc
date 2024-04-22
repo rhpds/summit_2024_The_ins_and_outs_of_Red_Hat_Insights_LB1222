@@ -52,7 +52,7 @@ If you aren’t familiar with vi:
 * Go to the end of the line and press `i` to enter editing mode. 
 * Delete “true” then type in “false” 
 * Press the "esc" key to exit editing mode. 
-* Type:+
+* Type:
  `:wq`
 * This will write the file and quit the editor.
 
@@ -95,10 +95,10 @@ sudo insights-client --collector malware-detection
 In the output you should see: +
 [source,textinfo]
 ----
-Scanning files in /home ... +
-Matched rule XFTI_EICAR_AV_Test in file /home/lab-user/eicar.com +
-Matched rule XFTI_EICAR_AV_Test in file /home/lab-user/eicar.com.txt +
-Matched rule XFTI_EICAR_AV_Test in file /home/lab-user/eicar_com.zip +
+Scanning files in /home ... 
+Matched rule XFTI_EICAR_AV_Test in file /home/lab-user/eicar.com 
+Matched rule XFTI_EICAR_AV_Test in file /home/lab-user/eicar.com.txt 
+Matched rule XFTI_EICAR_AV_Test in file /home/lab-user/eicar_com.zip 
 Matched rule XFTI_EICAR_AV_Test in file /home/lab-user/eicar_com2.zip
 ----
 
