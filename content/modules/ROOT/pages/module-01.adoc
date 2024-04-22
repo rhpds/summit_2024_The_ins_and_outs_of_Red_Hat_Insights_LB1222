@@ -3,7 +3,7 @@
 == Overview
 
 In this lab we have already provided for you a Red Hat Enterprise Linux (RHEL) 8 host. +
-Your RHEL host will be the primary focus of this lab, and you will be using a user account that has access to all of the services of Insights, however to provide the best experience for all users there are some actions you will not be able to do in the lab 
+Your RHEL host will be the primary focus of this lab, and you will be using a user account that has access to all of the services of Insights, however to provide the best experience for all users there are some actions you will not be able to do in the lab. 
 
 
 Insights uses the insights-client on each RHEL host to report system facts to Insights for analysis.  +
@@ -53,7 +53,7 @@ Your host is now connected to Red Hat and Insights.
 This system should now be visible in Insights. +
 Open up the Hybrid Cloud Console.
 
-NOTE: You will need to open a new browser window to access the Hybrid Cloud Console - It won't connect in a window like the terminal window does.  In the upper right of these instructions you should see a `Links` button.  You can select the Hybrid Cloud Console from the Links OR you can manually type in console.redhat.com
+NOTE: You will need to open a new browser window to access the Hybrid Cloud Console - It won't connect in a window like the terminal window does.  Open a browser window and type in: console.redhat.com
 
 == Accessing Insights
 
@@ -83,11 +83,10 @@ While this may be disappointing at times, permissions were granted to your user 
 NOTE: While your system is now connected to Insights, you are creating an image first as the image creation process takes several minutes once it is initiated.  Starting with this activity gives it time to complete before the end of the module.
 
 In this lab environment we provided you a system.   The system was already created with the packages you need to complete these lab exercises.
-Insights is also capable of creating system images inside of Insights.
-You can also launch these images directly into a public cloud - AWS, Azure, GCP, or OCI.
-
-Images can be created in a variety of formats including .ova, .qcow2, and .iso.
-This is all based on RHEL's image builder capabilities. 
+Insights is also capable of creating system images. +
+Images can be created in a variety of formats including .ova, .qcow2, and .iso. +
+You can also launch these images directly into a public cloud - AWS, Azure, GCP, or OCI. +
+This is all based on RHEL’s image builder capabilities.
 
 At the top of the page you will see a search bar. +  
 Type `image`. +
@@ -218,8 +217,10 @@ NOTE: Depending on your screen resolution the left hand navigation bar may autom
 
 Inventory Groups are a way to group systems together in a way that makes sense to you.  
 Once grouped you can then apply role based access controls to the group.
+
 For example, we could have created a group for systems created in this lab, then only given your user access to the systems in that group - you would never see any other systems.
-For example, you may want the web development team to only access their servers and no others.  This can be achieved today through inventory groups.  The current implementation has some gaps, so expect to see enhancements in this area in the near future.
+Or, you may want the web development team to only access their servers and no others.  
+This can be achieved today through inventory groups.  The current implementation has some gaps, so expect to see enhancements in this area in the near future.
 
 Your user can select a group but cannot add new groups or add systems to groups.  You also don't have the ability to apply access control on groups.  As a result the `Create group` button is not available to you.
 
