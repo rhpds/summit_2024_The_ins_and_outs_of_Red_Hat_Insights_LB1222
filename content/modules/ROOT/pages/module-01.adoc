@@ -80,7 +80,7 @@ While this may be disappointing at times, permissions were granted to your user 
 
 == Creating an image
 
-NOTE: While your system is now connected to Insights, you are creating an image first as the image creation process takes several minutes once it is initiated.  Starting with this activity gives it time to complete before the end of the module.
+NOTE: While your system is now connected to Insights, you are creating an blueprint first, then creating an image from that blueprint. The image creation process takes several minutes once it is initiated.  Starting with this activity hopefully gives it time to complete before the end of the module.
 
 In this lab environment we provided you a system.   The system was already created with the packages you need to complete these lab exercises.
 Insights is also capable of creating system images. +
@@ -97,8 +97,8 @@ This will take you to the Images page inside of Insights.
 You have image creation options for `Conventional (RPM-DNF)` as well as `Immutable (OSTree)` via the tabs at the top.
 The default is `Conventional (RPM-DNF)` which is where you will focus in this activity.
 
-Click the `Create image` button.
-This starts a wizard that helps you create a custom image.
+Click the `Create blueprint` button.
+This starts a wizard that helps you create a blueprint.  You base images off of your blueprint.
 
 The numbers align with the steps in the wizard, assuming that you follow the steps below. +
 
@@ -135,38 +135,40 @@ Since you have selected an older version, the release lifecycle information is d
 .. Your system will now be created with a 10GB root, a 5 GB home, and a 2GB tmp partition.
 .. Click `Next`
 . `Content`
-.. In this section you can add packages to your image.  
-.. Under `Available packages` in the `Search for a package` area type `postgres` and press enter.
-.. Scroll down the list and find `postgresql-server` and click it.
-.. In the center area between the two boxes, you will see some arrows.  `>`, and `>>`,
-.. Click `>`.  This will list the `postgresql-server` package in the right box, making it a `Chosen package`.
-.. Under `Available packages` in the `Search for a package` area, remove any existing text (You can clisk the `x` in the search box) then type `openscap` and hit enter.
-.. Scroll down the list and find `openscap` and click it.
-.. Click `>` to make it a chosen package.
-.. The `Chosen packages` list now contains `postgresql-server` and `openscap`.  
-.. Repeat with any additional desired packages.
-.. Click `Next`
 .. You can also optionally select any `Custom repositories`.  These custom repositories are managed in the `Content` section and will be covered later.
+.. Click `Next`
+.. In this section you can add packages to your image.  
+.. Under `Available packages` in the `Search for a package` area type `postgresql-s` and press enter.
+.. Scroll down the list and find `postgresql-server` and check the box beside it.
+.. This package is now selected.  You can see it next to the search where “Selected (1)”
+.. Clear the search by highlighting a deleting the text.
+.. Type `openscap` and hit enter.
+.. Scroll down the list and find `openscap` and check the box beside it.
+.. You should see Selected (2)
+.. The `Selected` list now contains `postgresql-server` and `openscap`.  
 .. Click `Next`
 . `Details`
 +
-WARNING: Read the text under `Image Name`.  The image name can be 3-63 characters long. It can contain lowercase letters, digits and hyphens, has to start with a letter and cannot end with a hyphen.  If you have an error in this step your name probably contains a period or uppercase letter.
+NOTE: Please add some sort of unique identifier to the blueprint name.  We suggest using your host’s unique hostname. 
 +
-NOTE: Please add some sort of unique identifier to the image name.  We suggest using your host’s unique hostname. Since your hostname includes a period you should only use the text before the period.
-+
-.. Name your image.  Under `Image Name` enter a name such as `rhel8-postgres-<yoursystemname>` +
+.. Name your blueprint.  Under `Blueprint Name` enter a name such as `rhel8-postgres-<yoursystemname>` +
 Reminder: your system name is: {bastion_hostname}
-.. Add a description of the image if desired.
+.. Add a description of the blueprint if desired.
 .. Click `Next`
 . `Review`
 .. In the `Review` section you can expand the different areas and review the selections that you have made.
-.. Click `Create image`
+.. Click `Create blueprint`
+
+Now you will use the blueprint to create an image.  
+On the left side of the screen you will see `Blueprints`.
+Search for your blueprint using the search bar at the top.
+Select your blueprint by clicking the name.
+Click `Build images`.
 
 The image build process has started.  
 We will return to this section prior to completing this module to allow time for the image to be created.
 
 NOTE: The image creation process will take several minutes (around 10-15 average based on the above selections).
-
 
 == Seeing your system in the Inventory
 
